@@ -1,21 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="157080a4-8f32-454b-85af-8a4d29031a81" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/bin/t.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/doctrine_migrations.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Auth/Domain/Account/Account.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Auth/Domain/Account/AccountId.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Auth/Domain/User/User.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Application/DTO/CreateDealDTO.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Application/DTO/UpdateDealConditionsDTO.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Application/Repository/DQL/DealRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Application/Service/DealService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Domain/Deal/Conditions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Domain/Deal/Deal.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Domain/Deal/DealId.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Domain/Deal/StatusesEnum.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/DTO/CreateInvestorDTO.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/DTO/UpdateInvestorDescriptionDataDTO.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Repository/DQL/InvestorRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Service/InvestorService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Domain/Investor/DescriptionData.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Domain/Investor/Investor.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Domain/Investor/TypesEnum.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Domain/Request/ChangeInvestorRequisitesRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Domain/Request/RegisterInvestorRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/DTO/CreateProjectDTO.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/DTO/UpdateProjectBusinessDataDTO.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/DTO/UpdateProjectCommonDataDTO.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/Repository/ProjectRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/Service/ProjectService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Project/Domain/Project/BusinessData.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Project/Domain/Project/DescriptionData.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Project/Domain/Project/Project.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Project/Domain/Project/StatusesEnum.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Request/Application/Repository/DQL/RequestRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Request/Application/Service/RequestService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeProjectBusinessDataRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/CreateProjectRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Abstract/Entity/AbstractEntity.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Abstract/Id/AbstractId.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Abstract/ValueObject/AbstractValueObject.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Common/Enum/InvestmentRangeEnum.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Common/ValueObject/EconomicRegion.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Common/ValueObject/FileObject.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Common/ValueObject/Money.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Common/ValueObject/Requisites.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Common/ValueObject/Tag.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Auth/UserId.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Investor/InvestorId.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Project/ProjectId.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Request/AbstractRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Request/RejectReasonsEnum.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Request/RequestId.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Request/RequestInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Request/StatusesEnum.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Request/TypesEnum.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Controller/ProjectController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Controller/ProjectListController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Controller/RequestController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Controller/RequestListController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/DomainProjectMapper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/ORMEntity/ProjectORM.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/ORMEntity/TagORM.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/PersistenceService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
-    <execution />
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable path="composer" />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JsbtTreeLayoutManager">
+    <layout place="tools.popupGrunt">
+      <scroll-view-position x="0" y="0" />
+    </layout>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dependency-injection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dotenv" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/symfony/cache-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/runtime" />
+      <path value="$PROJECT_DIR$/vendor/symfony/flex" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/symfony/framework-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/vendor/symfony/config" />
+      <path value="$PROJECT_DIR$/vendor/symfony/doctrine-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/stopwatch" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/sql-formatter" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/migrations" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/persistence" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/vendor/brick/math" />
+    </include_path>
+  </component>
   <component name="ProjectId" id="2cJyMaLqsP7nDmwr7qWNc2QpbPv" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -23,17 +172,37 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Курсач/accel/config/routes",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "settings.editor.selected.configurable": "editor.preferences.tabs",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Курсач\accel\config\routes" />
+      <recent name="D:\Курсач\accel\bin\test-data" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Курсач\accel\config" />
+      <recent name="D:\Курсач\accel\src\Infrastructure\Persistence\Doctrine" />
+      <recent name="D:\Курсач\accel\bin\test-data" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -42,7 +211,33 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1707843929621</updated>
-      <workItem from="1707843931827" duration="326000" />
+      <workItem from="1707843931827" duration="624000" />
+      <workItem from="1707844587344" duration="1592000" />
+      <workItem from="1708014434622" duration="1860000" />
+      <workItem from="1708263724133" duration="2389000" />
+      <workItem from="1708305973695" duration="20111000" />
+      <workItem from="1708974194669" duration="12198000" />
+      <workItem from="1710240761728" duration="30000" />
+      <workItem from="1710512022346" duration="595000" />
+      <workItem from="1710582564517" duration="19000" />
+      <workItem from="1710582613123" duration="42000" />
+      <workItem from="1710851754999" duration="20860000" />
+      <workItem from="1711221676054" duration="3532000" />
+      <workItem from="1711392379858" duration="373000" />
+      <workItem from="1711997089880" duration="4309000" />
+      <workItem from="1712074215894" duration="9326000" />
+      <workItem from="1712282030746" duration="2466000" />
+      <workItem from="1713395389085" duration="318000" />
+      <workItem from="1715467878375" duration="839000" />
+      <workItem from="1715637134217" duration="1154000" />
+      <workItem from="1715710128351" duration="3943000" />
+      <workItem from="1715884471260" duration="5159000" />
+      <workItem from="1715982853619" duration="3527000" />
+      <workItem from="1716034157744" duration="4337000" />
+      <workItem from="1716148933364" duration="5734000" />
+      <workItem from="1716276681009" duration="66000" />
+      <workItem from="1716276786547" duration="33986000" />
+      <workItem from="1716657182389" duration="21144000" />
     </task>
     <servers />
   </component>
