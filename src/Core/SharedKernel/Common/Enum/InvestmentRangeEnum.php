@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\SharedKernel\Common\Enum;
+namespace Accel\App\Core\SharedKernel\Common\Enum;
 
 enum InvestmentRangeEnum: int
 {
@@ -10,4 +10,3 @@ enum InvestmentRangeEnum: int
     case VALUE_5M = 5000000;
     case VALUE_10M = 10000000;
 }
-

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Core\Component\Project\Application\DTO;
+namespace Accel\App\Core\Component\Project\Application\DTO;
 
-use App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
-use App\Core\SharedKernel\Common\ValueObject\FileObject;
-use App\Core\SharedKernel\Common\ValueObject\Tag;
-use App\Core\SharedKernel\Component\Project\ProjectId;
+use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
+use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
+use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 
 class UpdateProjectBusinessDataDTO
 {

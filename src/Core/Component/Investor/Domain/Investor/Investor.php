@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Core\Component\Investor\Domain\Investor;
+namespace Accel\App\Core\Component\Investor\Domain\Investor;
 
-use App\Core\SharedKernel\Abstract\Entity\AbstractEntity;
-use App\Core\SharedKernel\Common\ValueObject\Requisites;
-use App\Core\SharedKernel\Common\ValueObject\Tag;
-use App\Core\SharedKernel\Component\Auth\UserId;
-use App\Core\SharedKernel\Component\Investor\InvestorId;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Requisites;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
+use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
+use Accel\Extension\Entity\AbstractEntity;
 
 class Investor extends AbstractEntity
 {

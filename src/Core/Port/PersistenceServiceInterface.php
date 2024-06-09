@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Core\Port;
+namespace Accel\App\Core\Port;
 
 interface PersistenceServiceInterface
 {
-    public function upsert($entity): void;
+    public function upsert($entity, MapperInterface $mapper = null): void;
 
-    public function delete($entity): void;
 }

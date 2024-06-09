@@ -1,20 +1,22 @@
 <?php
 
-namespace App\Infrastructure\Persistence\Doctrine;
+namespace Accel\App\Infrastructure\Persistence\Doctrine;
 
-use App\Core\Port\PersistenceServiceInterface;
-use App\Core\Port\QueryServiceInterface;
-use App\Core\Port\QueryWrapperInterface;
+use Accel\App\Core\Port\MapperInterface;
+use Accel\App\Core\Port\PersistenceServiceInterface;
+use Accel\App\Core\Port\QueryInterface;
+use Accel\App\Core\Port\QueryServiceInterface;
+use Accel\App\Core\Port\ResultCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 
 class PersistenceService implements QueryServiceInterface, PersistenceServiceInterface
 {
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
+        private readonly EntityManagerInterface $em,
     ) {}
 
-    public function query(QueryWrapperInterface $queryWrapper)
+    public function query(QueryInterface $queryWrapper): ResultCollection
     {
         /** @var Query $query */
         $query = $queryWrapper->getQuery();
@@ -23,16 +25,17 @@ class PersistenceService implements QueryServiceInterface, PersistenceServiceInt
             throw new \Exception('Получили инст ' . \get_class($query) . '. Нужен инст ' . Query::class );
         }
 
-//        return $query->execute(hydrationMode: 1);
-        return $query->execute();
+//        var_dump($query->getDQL());die;
+//        var_dump($query->getParameters());die;
+//        var_dump($query->getSQL());die;
+//        var_dump($query->execute());die;
+
+        return new ResultCollection($query->execute());
     }
 
-    public function upsert($entity): void {
-        $this->entityManager->persist($entity);
-        $this->entityManager->flush();
-    }
-
-    public function delete($entity): void {
-        $this->entityManager->remove($entity);
+    public function upsert($entity, MapperInterface $mapper = null): void {
+        $entityORM = $mapper === null ? $entity : $mapper->mapToORM($entity);
+        $this->em->persist($entityORM);
+        $this->em->flush();
     }
 }

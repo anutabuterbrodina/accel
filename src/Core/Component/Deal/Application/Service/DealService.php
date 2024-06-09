@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Core\Component\Deal\Application\Service;
+namespace Accel\App\Core\Component\Deal\Application\Service;
 
-use App\Core\Component\Deal\Application\DTO\CreateDealDTO;
-use App\Core\Component\Deal\Application\DTO\UpdateDealConditionsDTO;
-use App\Core\Component\Deal\Application\Repository\DQL\DealRepository;
-use App\Core\Component\Deal\Domain\Deal\Deal;
-use App\Core\Component\Deal\Domain\Deal\DealId;
-use App\Core\Component\Deal\Domain\Deal\StatusesEnum;
-use App\Core\SharedKernel\Component\Investor\InvestorId;
-use App\Core\SharedKernel\Component\Project\ProjectId;
+use Accel\App\Core\Component\Deal\Application\DTO\CreateDealDTO;
+use Accel\App\Core\Component\Deal\Application\DTO\UpdateDealConditionsDTO;
+use Accel\App\Core\Component\Deal\Application\Repository\DQL\DealRepository;
+use Accel\App\Core\Component\Deal\Domain\Deal\Deal;
+use Accel\App\Core\Component\Deal\Domain\Deal\DealId;
+use Accel\App\Core\Component\Deal\Domain\Deal\StatusesEnum;
+use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
+use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 
 class DealService
 {

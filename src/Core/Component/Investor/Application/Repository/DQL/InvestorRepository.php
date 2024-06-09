@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Core\Component\Investor\Application\Repository\DQL;
+namespace Accel\App\Core\Component\Investor\Application\Repository\DQL;
 
-use App\Core\Component\Investor\Application\Repository\PersistenceServiceInterface;
-use App\Core\Component\Investor\Application\Repository\QueryBuilder;
-use App\Core\Component\Investor\Application\Repository\QueryServiceInterface;
-use App\Core\Component\Investor\Domain\Investor\Investor;
-use App\Core\SharedKernel\Abstract\Repository\RepositoryInterface;
-use App\Core\SharedKernel\Component\Investor\InvestorId;
+use Accel\App\Core\Port\PersistenceServiceInterface;
+use Accel\App\Core\Port\QueryBuilderInterface;
+use Accel\App\Core\Port\QueryServiceInterface;
 
 class InvestorRepository
 {
     public function __construct(
-        private readonly QueryBuilder $queryBuilder,
+        private readonly QueryBuilderInterface $queryBuilder,
         private readonly QueryServiceInterface $queryService,
         private readonly PersistenceServiceInterface $persistenceService,
     ) {}

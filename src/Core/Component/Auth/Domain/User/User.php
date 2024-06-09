@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Core\Component\Auth\Domain\User;
+namespace Accel\App\Core\Component\Auth\Domain\User;
 
 class User
 {
+    public function __construct(
 
+    ) {}
 }

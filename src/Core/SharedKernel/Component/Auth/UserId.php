@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\SharedKernel\Component\Auth;
+namespace Accel\App\Core\SharedKernel\Component\Auth;
 
-use App\Core\SharedKernel\Abstract\Id\AbstractUUID;
+use Accel\Extension\Id\AbstractUUID;
 
 class UserId extends AbstractUUID
 {

@@ -1,9 +1,9 @@
 controllers:
     resource:
-        path: ../../src/Infrastructure/Controller/
-        namespace: App\Infrastructure\Controller
+        path: ../../src/Presentation/Controller/
+        namespace: Accel\App\Presentation\Controller
     type: attribute
 
 kernel:
-    resource: App\Kernel
+    resource: Accel\App\Infrastructure\Symfony\Kernel
     type: attribute

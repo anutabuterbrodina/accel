@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Component\Investor\Application\DTO;
+namespace Accel\App\Core\Component\Investor\Application\DTO;
 
-use App\Core\SharedKernel\Component\Investor\InvestorId;
+use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
 
 class UpdateInvestorDescriptionDataDTO
 {

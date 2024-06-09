@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Core\SharedKernel\Common\ValueObject;
+namespace Accel\App\Core\SharedKernel\Common\ValueObject;
 
-use App\Core\SharedKernel\Abstract\ValueObject\AbstractValueObject;
+use Accel\App\Core\SharedKernel\Abstract\ValueObject\AbstractValueObject;
 
-final class Tag extends AbstractValueObject
+final class Tag extends AbstractValueObject implements \JsonSerializable
 {
     /**
      * @var string
@@ -21,6 +21,11 @@ final class Tag extends AbstractValueObject
     }
 
     public function toScalar(): string
+    {
+        return $this->name;
+    }
+
+    public function jsonSerialize(): string
     {
         return $this->name;
     }

@@ -1,28 +1,20 @@
 <?php
 
-namespace App\Infrastructure\Persistence\Doctrine\Mapper;
+namespace Accel\App\Infrastructure\Persistence\Doctrine\Mapper;
 
-use App\Core\SharedKernel\Common\ValueObject\Tag;
-use App\Infrastructure\Persistence\Doctrine\ORMEntity\TagORM;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
+use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Tag as TagORM;
+use Doctrine\ORM\EntityManager;
 
 class TagMapper
 {
-    private const KOSTIL = [
-        '1' => 'Здоровье и медицина',
-        '2' => 'Пищевая промышленность',
-        '3' => 'Информационный технологии IT',
-        '4' => 'Домашние животные',
-        '5' => 'Сельсхое хозяйство',
-        '6' => 'Красота и уход за собой',
-        '7' => 'Машиностроение',
-        '8' => 'Уход за детьми',
-        '9' => 'Строительство',
-    ];
+    public function __construct(
+        private readonly EntityManager $em,
+    ) {}
 
-    public static function mapToOrm(Tag $tag): TagORM {
-        $tagORM = new TagORM();
-        $tagORM->setTagId( array_search($tag->toScalar(), self::KOSTIL) );
-        $tagORM->setName( $tag->toScalar() );
+    public function mapToOrm(Tag $tag): TagORM {
+        /** @var TagORM $tagORM */
+        $tagORM = $this->em->getRepository(TagORM::class)->findOneBy(['name' => $tag->toScalar()]);
         return $tagORM;
     }
 }

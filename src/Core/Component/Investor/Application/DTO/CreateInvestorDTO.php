@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Core\Component\Investor\Application\DTO;
+namespace Accel\App\Core\Component\Investor\Application\DTO;
 
-use App\Core\SharedKernel\Common\ValueObject\Requisites;
-use App\Core\SharedKernel\Common\ValueObject\Tag;
-use App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Requisites;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
+use Accel\App\Core\SharedKernel\Component\Auth\UserId;
 
 class CreateInvestorDTO
 {

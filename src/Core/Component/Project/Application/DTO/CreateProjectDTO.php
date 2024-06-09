@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Core\Component\Project\Application\DTO;
+namespace Accel\App\Core\Component\Project\Application\DTO;
 
-use App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
-use App\Core\SharedKernel\Common\ValueObject\FileObject;
-use App\Core\SharedKernel\Common\ValueObject\Tag;
-use App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
+use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
+use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 
 class CreateProjectDTO
 {
     /** @param Tag[] $tags */
     public function __construct(
+        private readonly ProjectId           $projectId,
         private readonly UserId              $userId,
         private readonly string              $name,
         private readonly string              $description,
@@ -19,6 +21,10 @@ class CreateProjectDTO
         private readonly InvestmentRangeEnum $requiredInvestmentMax,
         private readonly array               $tags,
     ) {}
+
+    public function getProjectId(): ProjectId {
+        return $this->projectId;
+    }
 
     public function getUserId(): UserId {
         return $this->userId;
@@ -48,5 +54,4 @@ class CreateProjectDTO
     public function getTags(): array {
         return $this->tags;
     }
-
 }

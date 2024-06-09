@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\SharedKernel\Common\ValueObject;
+namespace Accel\App\Core\SharedKernel\Common\ValueObject;
 
-use App\Core\SharedKernel\Abstract\ValueObject\AbstractValueObject;
+use Accel\App\Core\SharedKernel\Abstract\ValueObject\AbstractValueObject;
 
 final class FileObject extends AbstractValueObject
 {

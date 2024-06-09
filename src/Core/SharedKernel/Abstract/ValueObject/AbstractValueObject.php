@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\SharedKernel\Abstract\ValueObject;
+namespace Accel\App\Core\SharedKernel\Abstract\ValueObject;
 
 abstract class AbstractValueObject
 {

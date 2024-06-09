@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Component\Auth\Domain\Account;
+namespace Accel\App\Core\Component\Auth\Domain\Account;
 
 class AccountId
 {

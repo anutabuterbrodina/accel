@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Core\Component\Investor\Application\Service;
+namespace Accel\App\Core\Component\Investor\Application\Service;
 
-use App\Core\Component\Investor\Application\DTO\CreateInvestorDTO;
-use App\Core\Component\Investor\Application\DTO\UpdateInvestorDescriptionDataDTO;
-use App\Core\Component\Investor\Application\Repository\DQL\InvestorRepository;
-use App\Core\Component\Investor\Domain\Investor\Investor;
-use App\Core\Component\Investor\Domain\Investor\TypesEnum;
-use App\Core\SharedKernel\Common\ValueObject\Requisites;
-use App\Core\SharedKernel\Common\ValueObject\Tag;
-use App\Core\SharedKernel\Component\Auth\UserId;
-use App\Core\SharedKernel\Component\Investor\InvestorId;
+use Accel\App\Core\Component\Investor\Application\DTO\CreateInvestorDTO;
+use Accel\App\Core\Component\Investor\Application\DTO\UpdateInvestorDescriptionDataDTO;
+use Accel\App\Core\Component\Investor\Application\Repository\DQL\InvestorRepository;
+use Accel\App\Core\Component\Investor\Domain\Investor\Investor;
+use Accel\App\Core\Component\Investor\Domain\Investor\TypesEnum;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Requisites;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
+use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
 
 class InvestorService
 {

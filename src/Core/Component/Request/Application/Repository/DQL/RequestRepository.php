@@ -1,55 +1,44 @@
 <?php
 
-namespace App\Core\Component\Request\Application\Repository\DQL;
+namespace Accel\App\Core\Component\Request\Application\Repository\DQL;
 
-use App\Core\SharedKernel\Component\Request\AbstractRequest;
-use App\Core\SharedKernel\Component\Request\RequestId;
-use App\Core\SharedKernel\Component\Request\RequestInterface;
+use Accel\App\Core\Component\Request\Domain\Request\AbstractRequest;
+use Accel\App\Core\Component\Request\Domain\Request\RequestInterface;
+use Accel\App\Core\Port\PersistenceServiceInterface;
+use Accel\App\Core\Port\QueryBuilderInterface;
+use Accel\App\Core\Port\QueryServiceInterface;
+use Accel\App\Core\Port\RequestMapperInterface;
+use Accel\App\Core\SharedKernel\Component\Request\RequestId;
 
-/**
- * This repository uses DQL language, so it is custom realization of ProjectRepository
- * therefore there is need of implementing ProjectRepositoryInterface
- */
 class RequestRepository
 {
-    private $queryBuilder;
-
-    private $queryService;
-
-    private $persistenceService;
-
-    public function __construct()
-    {
-
-    }
+    public function __construct(
+        private readonly QueryBuilderInterface        $queryBuilder,
+        private readonly PersistenceServiceInterface  $persistenceService,
+        private readonly QueryServiceInterface        $queryService,
+        private readonly RequestMapperInterface       $requestMapper,
+    ) {}
 
     public function findById(RequestId $id): RequestInterface
     {
-        $query = $this->queryBuilder->create(Project::class)
-            ->where('Post.id = :id')
-            ->setParameter('id', $id)
+        $query = $this->queryBuilder->create('', 'Request')
+            ->where('Request.id = :id')
+            ->setParameter('id', $id->toScalar())
             ->build();
 
-        return $this->queryService->query($query)->getSingleResult();
+        /** @var RequestInterface $entity */
+        $entity = $this->queryService->query($query)->mapSingleResultTo(AbstractRequest::class, $this->requestMapper);
+
+        return $entity;
     }
 
-//    public function findBySlug(string $slug): Post
-//    {
-//        $dqlQuery = $this->dqlQueryBuilder->create(Post::class)
-//            ->where('Post.slug = :slug')
-//            ->setParameter('slug', $slug)
-//            ->build();
-//
-//        return $this->queryService->query($dqlQuery)->getSingleResult();
-//    }
-
-    public function add(RequestInterface $project): void
+    public function add(RequestInterface $request): void
     {
-        $this->persistenceService->upsert($project);
+        $this->persistenceService->upsert($request, $this->requestMapper);
     }
 
-    public function remove(RequestInterface $project): void
+    public function remove(RequestInterface $request): void
     {
-        $this->persistenceService->delete($project);
+        $this->persistenceService->delete($request);
     }
 }

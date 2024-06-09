@@ -4,7 +4,6 @@ doctrine:
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '16'
 
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
@@ -18,18 +17,21 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App\Infrastructure\Persistence\Doctrine\ORMEntity\Project:
+            Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Project:
                 type: attribute
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/ORMEntity'
-                prefix: 'App\Infrastructure\Persistence\Doctrine\ORMEntity'
-                alias: ProjectORM
-            App\Infrastructure\Persistence\Doctrine\ORMEntity\Tag:
+                prefix: 'Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity'
+                alias: Project
+            Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Tag:
                 type: attribute
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine/ORMEntity'
-                prefix: 'App\Infrastructure\Persistence\Doctrine\ORMEntity'
-                alias: TagORM
+                prefix: 'Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity'
+                alias: Tag
+        dql:
+            string_functions:
+                JSON_ARRAYAGG: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonArrayAgg
 
 when@test:
     doctrine:

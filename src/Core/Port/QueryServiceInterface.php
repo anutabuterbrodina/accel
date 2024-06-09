@@ -1,8 +1,14 @@
 <?php
 
-namespace App\Core\Port;
+namespace Accel\App\Core\Port;
+
+use Accel\Extension\Entity\AbstractEntity;
 
 interface QueryServiceInterface
 {
-    public function query(QueryWrapperInterface $queryWrapper);
+
+    /**
+     * @return ResultCollection<AbstractEntity>
+     */
+    public function query(QueryInterface $queryWrapper): ResultCollection;
 }

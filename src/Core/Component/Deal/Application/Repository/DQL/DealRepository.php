@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Core\Component\Deal\Application\Repository\DQL;
+namespace Accel\App\Core\Component\Deal\Application\Repository\DQL;
 
-use App\Core\Component\Deal\Domain\Deal\Deal;
-use App\Core\Component\Deal\Domain\Deal\DealId;
+use Accel\App\Core\Component\Deal\Domain\Deal\Deal;
+use Accel\App\Core\Component\Deal\Domain\Deal\DealId;
 
 class DealRepository
 {

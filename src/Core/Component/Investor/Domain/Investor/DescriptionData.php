@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Component\Investor\Domain\Investor;
+namespace Accel\App\Core\Component\Investor\Domain\Investor;
 
 class DescriptionData
 {

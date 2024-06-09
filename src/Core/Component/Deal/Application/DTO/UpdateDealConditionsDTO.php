@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Component\Deal\Application\DTO;
+namespace Accel\App\Core\Component\Deal\Application\DTO;
 
-use App\Core\Component\Deal\Domain\Deal\DealId;
+use Accel\App\Core\Component\Deal\Domain\Deal\DealId;
 
 class UpdateDealConditionsDTO
 {

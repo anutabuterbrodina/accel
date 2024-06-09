@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Core\Port;
+namespace Accel\App\Core\Port;
 
 interface MapperInterface
 {
-    public static function mapToORM();
+    public function mapToORM($entityDomain);
 
-    public static function mapToDomain();
+    public function mapToDomain($entityORM);
+
+    public function isNew(): bool;
 }

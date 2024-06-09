@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Core\Component\Deal\Application\DTO;
+namespace Accel\App\Core\Component\Deal\Application\DTO;
 
-use App\Core\SharedKernel\Component\Auth\UserId;
-use App\Core\SharedKernel\Component\Investor\InvestorId;
-use App\Core\SharedKernel\Component\Project\ProjectId;
+use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
+use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 
 class CreateDealDTO
 {

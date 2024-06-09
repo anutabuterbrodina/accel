@@ -14,11 +14,16 @@
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.0",
+        "guzzlehttp/psr7": "^2.6",
+        "nyholm/psr7": "^1.8",
         "ramsey/uuid": "^4.7",
+        "scienta/doctrine-json-functions": "^6.1",
         "symfony/console": "7.0.*",
         "symfony/dotenv": "7.0.*",
+        "symfony/expression-language": "7.0.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.0.*",
+        "symfony/psr-http-message-bridge": "7.0.*",
         "symfony/runtime": "7.0.*",
         "symfony/yaml": "7.0.*"
     },
@@ -32,12 +37,13 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "Accel\\App\\": "src/",
+            "Accel\\Extension\\": "lib/src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "Accel\\App\\Tests\\": "tests/"
         }
     },
     "replace": {

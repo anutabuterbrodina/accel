@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Core\Component\Project\Domain\Project;
+namespace Accel\App\Core\Component\Project\Domain\Project;
 
-enum StatusesEnum: int
+enum StatusesEnum: string
 {
-    case OnBoard = 1;
-    case OnModeration = 2;
-    case Archived = 3;
+    case OnBoard = 'on_board';
+    case OnModeration = 'on_moderation';
+    case Archived = 'archived';
 }

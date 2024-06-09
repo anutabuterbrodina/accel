@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Core\Component\Request\Domain\Request;
-
-use App\Core\SharedKernel\Component\Request\AbstractRequest;
+namespace Accel\App\Core\Component\Request\Domain\Request;
 
 class ChangeProjectBusinessDataRequest
 {

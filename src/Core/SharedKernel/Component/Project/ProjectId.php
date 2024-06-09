@@ -1,10 +1,7 @@
 <?php
 
-namespace App\Core\SharedKernel\Component\Project;
+namespace Accel\App\Core\SharedKernel\Component\Project;
 
-use App\Core\SharedKernel\Abstract\Id\AbstractUUID;
+use Accel\Extension\Id\AbstractUUID;
 
-class ProjectId extends AbstractUUID
-{
-
-}
+class ProjectId extends AbstractUUID {}

@@ -1,34 +1,76 @@
 <?php
 
-namespace App\Infrastructure\Persistence\Doctrine;
+namespace Accel\App\Infrastructure\Persistence\Doctrine;
 
-use App\Core\Port\QueryBuilderInterface;
-use App\Infrastructure\Query\DQLQueryWrapper;
+use Accel\App\Core\Port\QueryBuilderInterface;
+use Accel\App\Infrastructure\Query\DQLQuery;
+use Accel\Extension\Helpers\ClassHelper;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 
 final class DQLQueryBuilder extends QueryBuilder implements QueryBuilderInterface
 {
-    public function build(): DQLQueryWrapper {
-        return new DQLQueryWrapper($this->getQuery());
+    private const ORM_ENTITIES_NAMESPACE = 'Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity';
+
+    private int $hydrationMode;
+
+    public function build(): DQLQuery {
+
+        $query = $this->getQuery();
+        $query->setCacheable(false);
+
+        $dqlQuery = new DQLQuery($query);
+        $dqlQuery->setHydrationMode($this->hydrationMode);
+
+        return $dqlQuery;
     }
 
-    public function create(string $entityName, string $alias = null, string $indexBy = null): self {
-//        $alias = $alias ?? ClassHelper::extractCanonicalClassName($entityName);
+    public function create(string $entityName, string $alias, string $indexBy = null): self {
+        // TODO: Найти лучший способ формирования алиасов и названия ORM классов
+        $alias ??= ClassHelper::extractClassName($entityName);
+        $ORMEntityName = self::ORM_ENTITIES_NAMESPACE . '\\' . $alias;
 
-//        $this->reset();
+        $this->setCacheable(false);
 
-        return $this->select($alias)->from($entityName, $alias, $indexBy)->setMaxResults(self::DEFAULT_MAX_RESULTS);
+        $this->reset();
+
+        $this
+            ->select($alias)
+            ->from($ORMEntityName, $alias, $indexBy)
+            ->setMaxResults(self::DEFAULT_MAX_RESULTS);
+
+        return $this;
     }
 
     public function setParam($key, $value, $type = null): self {
-        return $this->setParameter($key, $value, $type);
+        $this->setParameter($key, $value, $type);
+        return $this;
     }
 
     public function groupByColumn(string $column): self {
-        return $this->groupBy($column);
+        $this->groupBy($column);
+        return $this;
     }
 
     public function addGroupByColumn(string $column): self {
-        return $this->addGroupBy($column);
+        $this->addGroupBy($column);
+        return $this;
+    }
+
+    public function useScalarHydration(): self
+    {
+        $this->hydrationMode = AbstractQuery::HYDRATE_SCALAR;
+        return $this;
+    }
+
+    public function useScalarColumnHydration(): self
+    {
+        $this->hydrationMode = AbstractQuery::HYDRATE_SCALAR_COLUMN;
+        return $this;
+    }
+
+    private function reset() {
+        $this->hydrationMode = AbstractQuery::HYDRATE_OBJECT;
+        $this->resetDQLParts();
     }
 }

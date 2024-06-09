@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Core\Component\Project\Domain\Project;
+namespace Accel\App\Core\Component\Project\Domain\Project;
 
-use App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
-use App\Core\SharedKernel\Common\ValueObject\FileObject;
-use App\Core\SharedKernel\Common\ValueObject\Tag;
+use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
+use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
 
 class BusinessData
 {

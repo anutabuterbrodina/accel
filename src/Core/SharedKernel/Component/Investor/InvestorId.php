@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\SharedKernel\Component\Investor;
+namespace Accel\App\Core\SharedKernel\Component\Investor;
 
 class InvestorId
 {

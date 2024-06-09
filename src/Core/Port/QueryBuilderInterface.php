@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Core\Port;
+namespace Accel\App\Core\Port;
 
 interface QueryBuilderInterface
 {
     public const DEFAULT_MAX_RESULTS = 30;
 
-    public function create(string $entityName, string $alias = null, string $indexBy = null): self;
+    public function create(string $entityName, string $alias, string $indexBy = null): self;
 
     public function setParam($key, $value, $type = null): self;
 
@@ -70,5 +70,9 @@ interface QueryBuilderInterface
 
     public function addOrderBy(string $sort, string $order = null): static;
 
-    public function build(): QueryWrapperInterface;
+    public function useScalarHydration(): self;
+
+    public function useScalarColumnHydration(): self;
+
+    public function build(): QueryInterface;
 }

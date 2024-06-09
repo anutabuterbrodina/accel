@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core\Component\Project\Application\DTO;
+namespace Accel\App\Core\Component\Project\Application\DTO;
 
-use App\Core\SharedKernel\Component\Project\ProjectId;
+use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 
 class UpdateProjectCommonDataDTO
 {

@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Core\SharedKernel\Component\Request;
+namespace Accel\App\Core\SharedKernel\Component\Request;
 
-class RequestId
+use Accel\Extension\Id\AbstractUUID;
+
+class RequestId extends AbstractUUID
 {
 
 }

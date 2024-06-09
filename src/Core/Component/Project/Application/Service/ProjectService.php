@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Core\Component\Project\Application\Service;
+namespace Accel\App\Core\Component\Project\Application\Service;
 
-use App\Core\Component\Project\Application\DTO\CreateProjectDTO;
-use App\Core\Component\Project\Application\DTO\UpdateProjectBusinessDataDTO;
-use App\Core\Component\Project\Application\DTO\UpdateProjectCommonDataDTO;
-use App\Core\Component\Project\Application\Repository\ProjectRepository;
-use App\Core\Component\Project\Domain\Project\Project;
-use App\Core\Component\Project\Domain\Project\StatusesEnum;
-use App\Core\SharedKernel\Component\Auth\UserId;
-use App\Core\SharedKernel\Component\Project\ProjectId;
+use Accel\App\Core\Component\Project\Application\DTO\CreateProjectDTO;
+use Accel\App\Core\Component\Project\Application\DTO\UpdateProjectBusinessDataDTO;
+use Accel\App\Core\Component\Project\Application\DTO\UpdateProjectCommonDataDTO;
+use Accel\App\Core\Component\Project\Application\Repository\ProjectRepository;
+use Accel\App\Core\Component\Project\Domain\Project\Project;
+use Accel\App\Core\Component\Project\Domain\Project\StatusesEnum;
+use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 
 class ProjectService
 {
@@ -23,7 +23,7 @@ class ProjectService
             $DTO->getDescription(),
             $DTO->getBusinessPlan(),
             $DTO->getRequiredInvestmentMin(),
-            $DTO->getRequiredInvestmentMin(),
+            $DTO->getRequiredInvestmentMax(),
             $DTO->getUserId(),
             $DTO->getTags(),
         );

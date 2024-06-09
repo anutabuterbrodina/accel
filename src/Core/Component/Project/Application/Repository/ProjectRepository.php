@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Core\Component\Project\Application\Repository;
+namespace Accel\App\Core\Component\Project\Application\Repository;
 
-use App\Core\Component\Project\Domain\Project\Project;
-use App\Core\Port\Mapper\DomainProjectMapperInterface;
-use App\Core\Port\PersistenceServiceInterface;
-use App\Core\Port\QueryBuilderInterface;
-use App\Core\Port\QueryServiceInterface;
-use App\Core\SharedKernel\Component\Project\ProjectId;
+use Accel\App\Core\Component\Project\Domain\Project\Project;
+use Accel\App\Core\Port\PersistenceServiceInterface;
+use Accel\App\Core\Port\ProjectMapperInterface;
+use Accel\App\Core\Port\QueryBuilderInterface;
+use Accel\App\Core\Port\QueryServiceInterface;
+use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 
 class ProjectRepository
 {
@@ -15,29 +15,29 @@ class ProjectRepository
         private readonly QueryBuilderInterface        $queryBuilder,
         private readonly PersistenceServiceInterface  $persistenceService,
         private readonly QueryServiceInterface        $queryService,
-        private readonly DomainProjectMapperInterface $mapper,
+        private readonly ProjectMapperInterface       $projectMapper,
     ) {}
 
     public function findById(ProjectId $id): Project
     {
-        $query = $this->queryBuilder->create(Project::class)
-            ->where('Post.id = :id')
-            ->setParameter('id', $id)
+        $query = $this->queryBuilder->create(Project::class, 'Project')
+            ->where('Project.id = :id')
+            ->setParameter('id', $id->toScalar())
             ->build();
 
-        return $this->queryService->query($query);
+        /** @var Project $entity */
+        $entity = $this->queryService->query($query)->mapSingleResultTo(Project::class, $this->projectMapper);
+
+        return $entity;
     }
 
     public function add(Project $project): void
     {
-        $projectORM = $this->mapper->mapToORM($project);
-        $this->persistenceService->upsert($projectORM);
-        var_dump('SUCC');die();
+        $this->persistenceService->upsert($project, $this->projectMapper);
     }
 
     public function remove(Project $project): void
     {
-        $projectORM = $this->mapper->mapToORM($project);
-        $this->persistenceService->delete($projectORM);
+        $this->persistenceService->delete($project);
     }
 }

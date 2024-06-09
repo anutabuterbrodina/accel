@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Component\Deal\Domain\Deal;
+namespace Accel\App\Core\Component\Deal\Domain\Deal;
 
 enum StatusesEnum: int
 {
