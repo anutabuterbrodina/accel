@@ -1,6 +1,6 @@
 <?php
 
-namespace Accel\App\Core\Component\Project\Application\Query;
+namespace Accel\App\Core\SharedKernel\Common;
 
 enum SortOrderEnum: string
 {

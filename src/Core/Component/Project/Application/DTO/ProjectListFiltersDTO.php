@@ -2,7 +2,7 @@
 
 namespace Accel\App\Core\Component\Project\Application\DTO;
 
-use Accel\App\Core\Component\Project\Application\Query\SortOrderEnum;
+use Accel\App\Core\SharedKernel\Common\SortOrderEnum;
 
 class ProjectListFiltersDTO
 {
@@ -27,7 +27,7 @@ class ProjectListFiltersDTO
     }
 
     public function getNameSearchString(): ?string {
-        return '%' . $this->nameSearchString . '%';
+        return isset($this->nameSearchString) ? '%' . $this->nameSearchString . '%' : null;
     }
 
     public function getInvestmentMin(): ?int {

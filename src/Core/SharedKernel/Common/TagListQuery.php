@@ -1,12 +1,10 @@
 <?php
 
-namespace Accel\App\Core\Component\Project\Application\Query;
+namespace Accel\App\Core\SharedKernel\Common;
 
 use Accel\App\Core\Port\QueryBuilderInterface;
 use Accel\App\Core\Port\QueryServiceInterface;
 use Accel\App\Core\Port\ResultCollection;
-use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
 use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Project;

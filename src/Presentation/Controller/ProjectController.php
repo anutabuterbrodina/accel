@@ -5,11 +5,8 @@ namespace Accel\App\Presentation\Controller;
 
 use Accel\App\Core\Component\Project\Application\DTO\UpdateProjectCommonDataDTO;
 use Accel\App\Core\Component\Project\Application\Query\ProjectQuery;
-use Accel\App\Core\Component\Project\Application\Repository\ProjectRepository;
 use Accel\App\Core\Component\Project\Application\Service\ProjectService;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
-use Accel\App\Infrastructure\Auth\AuthService;
 use Accel\App\Presentation\Controller\DTO\ProjectDTO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

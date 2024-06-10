@@ -1,14 +1,14 @@
 <?php
 
-namespace Accel\App\Core\Component\Project\Application\Query;
+namespace Accel\App\Core\Component\Investor\Application\Query;
 
-use Accel\App\Core\Component\Project\Application\DTO\ProjectListFiltersDTO;
+use Accel\App\Core\Component\Investor\Application\DTO\InvestorListFiltersDTO;
+use Accel\App\Core\Component\Investor\Domain\Investor\Investor;
 use Accel\App\Core\Port\QueryBuilderInterface;
 use Accel\App\Core\Port\QueryServiceInterface;
 use Accel\App\Core\Port\ResultCollection;
-use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Project;
 
-class ProjectListQuery
+class InvestorListQuery
 {
     public function __construct(
         private readonly QueryBuilderInterface $queryBuilder,
@@ -33,30 +33,28 @@ class ProjectListQuery
         }
     }
 
-    public function execute(ProjectListFiltersDTO $filters, ?string $userId = null): ResultCollection {
-        $this->queryBuilder->create(Project::class, 'Project')
+    public function execute(InvestorListFiltersDTO $filters, ?string $userId = null): ResultCollection {
+        $this->queryBuilder->create(Investor::class, 'Investor')
             ->select(
-                'Project.id',
-                'Project.name AS name',
-                'Project.description AS description',
-                'Project.investmentMin',
-                'Project.investmentMax',
-                'Project.createdAt',
+                'Investor.id',
+                'Investor.name AS name',
+                'Investor.description AS description',
+                'Investor.type',
+                'Investor.createdAt',
                 'JSON_ARRAYAGG(TagAgg.name) AS tags',
                 'JSON_ARRAYAGG(User.id) AS users',
             )
-            ->innerJoin('Project.tags', 'Tag')
-            ->innerJoin('Project.tags', 'TagAgg')
-            ->innerJoin('Project.users', 'User');
+            ->innerJoin('Investor.tags', 'Tag')
+            ->innerJoin('Investor.tags', 'TagAgg')
+            ->innerJoin('Investor.users', 'User');
 
         if ($filters->getLimit() !== null) {
             $this->queryBuilder->setMaxResults($filters->getLimit());
         }
 
         $this->applyFilter('Tag.name', 'IN', 'tags', $filters->getTags(), 102);
-        $this->applyFilter('Project.name', 'LIKE', 'projectName', $filters->getNameSearchString());
-        $this->applyFilter('Project.investmentMin', '>=', 'investmentMin', $filters->getInvestmentMin(), 1);
-        $this->applyFilter('Project.investmentMax', '<=', 'investmentMax', $filters->getInvestmentMax(), 1);
+        $this->applyFilter('Investor.type', 'IN', 'types', $filters->getTypes(), 102);
+        $this->applyFilter('Investor.name', 'LIKE', 'investorName', $filters->getNameSearchString());
 
         if ($userId !== null) {
             $this->memberedBy($userId);
@@ -64,12 +62,12 @@ class ProjectListQuery
 
         if ($filters->getSortOption() !== null) {
             $this->queryBuilder->orderBy(
-                'Project.' . $filters->getSortOption()->value,
+                'Investor.' . $filters->getSortOption()->value,
                 $filters->getSortOrder()->value,
             );
         }
 
-        $this->queryBuilder->groupByColumn('Project.id, Project.name, Project.investmentMin, Project.investmentMax, Project.createdAt');
+        $this->queryBuilder->groupByColumn('Investor.id, Investor.name, Investor.type, Investor.createdAt');
 
         $queryWrapper = $this->queryBuilder->build();
 
@@ -78,7 +76,7 @@ class ProjectListQuery
 
     private function memberedBy(string $userId): void {
         $this->queryBuilder
-            ->innerJoin('Project.users', 'User')
+            ->innerJoin('Investor.users', 'User')
             ->andWhere('User.id = :userId')
             ->setParameter('userId', $userId)
         ;
