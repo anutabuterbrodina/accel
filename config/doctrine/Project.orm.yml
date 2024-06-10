@@ -1,0 +1,7 @@
+App\Infrastructure\Persistence\Doctrine\ORMEntity\Project:
+    type: entity
+    table: projects
+    id:
+        id:
+            type: string
+            generator: { strategy: NONE }
