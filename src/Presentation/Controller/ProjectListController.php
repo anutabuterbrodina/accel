@@ -6,6 +6,8 @@ use Accel\App\Core\Component\Project\Application\DTO\ProjectListFiltersDTO;
 use Accel\App\Core\Component\Project\Application\DTO\ProjectListSortOptionsEnum;
 use Accel\App\Core\Component\Project\Application\Query\ProjectListQuery;
 use Accel\App\Core\SharedKernel\Common\SortOrderEnum;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Presentation\Controller\DTO\ProjectListItemDTO;
 use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,14 +24,17 @@ class ProjectListController
     ) {}
 
     #[Route('/', methods: ['GET'])]
-    public function get(ServerRequestInterface $request): Response
-    {
+    public function get(ServerRequestInterface $request): Response {
         $queryParams = $request->getQueryParams();
-        $userId = $queryParams['userId'] ?? null;
+
+        foreach ($queryParams['tags'] ?? [] as $tag) {
+            $tagList[] = Tag::of($tag);
+        }
 
         $filters = new ProjectListFiltersDTO(
             $queryParams['limit'] ?? null,
-            $queryParams['tags'] ?? null,
+            $tagList ?? null,
+            isset($queryParams['userId']) ? new UserId($queryParams['userId']) : null,
             $queryParams['nameSearchString'] ?? null,
             isset($queryParams['investmentMin']) ? (int) $queryParams['investmentMin'] : null,
             isset($queryParams['investmentMax']) ? (int) $queryParams['investmentMax'] : null,
@@ -37,7 +42,7 @@ class ProjectListController
             isset($queryParams['sortOrder']) ? SortOrderEnum::from($queryParams['sortOrder']) : null,
         );
 
-        $projectDTOList = $this->projectListQuery->execute($filters, $userId)
+        $projectDTOList = $this->projectListQuery->execute($filters)
             ->hydrateResultItemsAs(ProjectListItemDTO::class);
 
         return new JsonResponse($projectDTOList);

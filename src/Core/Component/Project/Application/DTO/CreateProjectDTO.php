@@ -5,7 +5,7 @@ namespace Accel\App\Core\Component\Project\Application\DTO;
 use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
 use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 
 class CreateProjectDTO

@@ -2,95 +2,91 @@
 
 namespace Accel\App\Core\Component\Request\Domain\Request;
 
+use Accel\App\Core\SharedKernel\Common\ValueObject\Requisites;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
 use Accel\App\Core\SharedKernel\Component\Request\RequestId;
-use DateTimeImmutable;
 
-class RegisterInvestorRequest
+class RegisterInvestorRequest extends AbstractRequest
 {
-    /**
-     * @var string
-     */
-    private string $investorName;
-
-    /**
-     * @var string
-     */
-    private string $investorDescription;
-
-    /**
-     * @var Tag[]
-     */
-    private array $interests;
-
-    /**
-     * @var InvestorId|null
-     */
-    private ?InvestorId $investor;
-
-
     public function __construct(
-        RequestId               $id,
-        TypesEnum               $type,
-        StatusesEnum            $status,
-        string                  $description,
-        UserId                  $creator,
-        DateTimeImmutable       $createdAt,
-        ?RejectReasonsEnum      $rejectReason,
-        ?string                 $rejectMessage,
-        string                  $investorName,
-        string                  $investorDescription,
-        array                   $interests,
-        ?InvestorId             $investor = null,
+        RequestId           $id,
+        TypesEnum           $type,
+        StatusesEnum        $status,
+        UserId              $creator,
+        string              $creatorComment,
+        ?UserId             $moderator,
+        ?RejectReasonsEnum  $rejectReason,
+        ?string             $rejectMessage,
+        ?InvestorId         $investorId,
+        private readonly RegisterInvestorRequestContent $content,
     ) {
-//        parent::__construct($id, $type, $status, $description, $creator, $createdAt, $rejectReason, $rejectMessage);
-
-        $this->investorName = $investorName;
-        $this->investorDescription = $investorDescription;
-        $this->interests = $interests;
-        $this->investor = $investor;
-    }
-
-
-    /** Factory method */
-
-    /**
-     * @param Tag[] $interests
-     */
-    public static function create(
-        UserId                  $creator,
-        string                  $description,
-        string                  $investorName,
-        string                  $investorDescription,
-        array                   $interests,
-    ): self {
-        return new self(
-            new RequestId(),
-            TypesEnum::RegisterInvestor,
-            StatusesEnum::OnModeration,
-            $description,
+        parent::__construct(
+            $id,
+            $type,
+            $status,
             $creator,
-            new DateTimeImmutable(),
-            null,
-            null,
-            $investorName,
-            $investorDescription,
-            $interests,
+            $creatorComment,
+            $moderator,
+            $rejectReason,
+            $rejectMessage,
+            $investorId,
         );
     }
 
 
-    /** Public methods */
+    /** Фабричный метод */
 
-    public function accept(): void
-    {
-        $this->status = StatusesEnum::Accepted;
+    /** @param Tag[] $investorInterest */
+    public static function create(
+        UserId     $creator,
+        string     $creatorComment,
+        string     $investorType,
+        string     $investorName,
+        string     $investorDescription,
+        Requisites $investorRequisites,
+        array      $investorInterest,
+    ): self {
+        return new self(
+            new RequestId(),
+            TypesEnum::RegisterProject,
+            StatusesEnum::OnModeration,
+            $creator,
+            $creatorComment,
+            null,
+            null,
+            null,
+            null,
+            new RegisterInvestorRequestContent(
+                null,
+                $creator,
+                $investorType,
+                $investorName,
+                $investorDescription,
+                $investorRequisites,
+                $investorInterest,
+            )
+        );
     }
 
 
-    /** Private methods */
+    /** Публичные методы */
+
+    public function accept(UserId $moderator): void {
+        $this->targetEntityId = new InvestorId();
+
+        $this->moderator = $moderator;
+        parent::changeStatus();
+    }
 
 
+    /** Приватные методы */
+
+
+    /** Immutable getters */
+
+    public function getContent(): RegisterInvestorRequestContent {
+        return $this->content;
+    }
 }

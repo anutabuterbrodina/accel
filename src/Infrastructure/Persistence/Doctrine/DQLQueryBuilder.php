@@ -3,7 +3,6 @@
 namespace Accel\App\Infrastructure\Persistence\Doctrine;
 
 use Accel\App\Core\Port\QueryBuilderInterface;
-use Accel\App\Infrastructure\Query\DQLQuery;
 use Accel\Extension\Helpers\ClassHelper;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
@@ -15,11 +14,7 @@ final class DQLQueryBuilder extends QueryBuilder implements QueryBuilderInterfac
     private int $hydrationMode;
 
     public function build(): DQLQuery {
-
-        $query = $this->getQuery();
-        $query->setCacheable(false);
-
-        $dqlQuery = new DQLQuery($query);
+        $dqlQuery = new DQLQuery($this->getQuery());
         $dqlQuery->setHydrationMode($this->hydrationMode);
 
         return $dqlQuery;
@@ -29,8 +24,6 @@ final class DQLQueryBuilder extends QueryBuilder implements QueryBuilderInterfac
         // TODO: Найти лучший способ формирования алиасов и названия ORM классов
         $alias ??= ClassHelper::extractClassName($entityName);
         $ORMEntityName = self::ORM_ENTITIES_NAMESPACE . '\\' . $alias;
-
-        $this->setCacheable(false);
 
         $this->reset();
 

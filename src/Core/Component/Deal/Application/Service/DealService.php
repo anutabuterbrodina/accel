@@ -4,7 +4,7 @@ namespace Accel\App\Core\Component\Deal\Application\Service;
 
 use Accel\App\Core\Component\Deal\Application\DTO\CreateDealDTO;
 use Accel\App\Core\Component\Deal\Application\DTO\UpdateDealConditionsDTO;
-use Accel\App\Core\Component\Deal\Application\Repository\DQL\DealRepository;
+use Accel\App\Core\Component\Deal\Application\Repository\DealRepository;
 use Accel\App\Core\Component\Deal\Domain\Deal\Deal;
 use Accel\App\Core\Component\Deal\Domain\Deal\DealId;
 use Accel\App\Core\Component\Deal\Domain\Deal\StatusesEnum;

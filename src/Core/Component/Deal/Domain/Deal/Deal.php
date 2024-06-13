@@ -2,11 +2,12 @@
 
 namespace Accel\App\Core\Component\Deal\Domain\Deal;
 
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
+use Accel\Extension\Entity\AbstractEntity;
 
-class Deal
+class Deal extends AbstractEntity
 {
     public function __construct(
         private readonly DealId       $id,
@@ -83,4 +84,31 @@ class Deal
 
 
     /** Приватные методы */
+
+
+    /** Immutable getters */
+
+    public function getId(): DealId {
+        return $this->id;
+    }
+
+    public function getStatus(): StatusesEnum {
+        return $this->status;
+    }
+
+    public function getResponsible(): UserId {
+        return $this->responsible;
+    }
+
+    public function getProject(): ?ProjectId {
+        return $this->project;
+    }
+
+    public function getInvestor(): ?InvestorId {
+        return $this->investor;
+    }
+
+    public function getConditions(): ?Conditions {
+        return $this->conditions;
+    }
 }

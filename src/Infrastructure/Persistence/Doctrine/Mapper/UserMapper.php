@@ -2,64 +2,74 @@
 
 namespace Accel\App\Infrastructure\Persistence\Doctrine\Mapper;
 
-use Accel\App\Core\Component\Auth\Domain\User\User;
-use Accel\App\Core\Port\MapperInterface;
+use Accel\App\Core\Component\User\Domain\Account\Account;
+use Accel\App\Core\Component\User\Domain\Account\AccountId;
+use Accel\App\Core\Component\User\Domain\User\RolesEnum;
+use Accel\App\Core\Component\User\Domain\User\User;
+use Accel\App\Core\Port\Mapper\UserMapperInterface;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
+use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Account as AccountORM;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\User as UserORM;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 
-class UserMapper implements MapperInterface
+class UserMapper implements UserMapperInterface
 {
     public function __construct(
-        private readonly EntityManager $em,
+        private readonly EntityManagerInterface $em,
+        private ?UserORM $userORM = null,
     ) {}
+
+    public function isNew(): bool {
+        return $this->userORM === null;
+    }
 
     /** @param User $user */
     public function mapToORM($user): UserORM {
-        $userORM = new UserORM();
+        $userORM = $this->userORM ?? new UserORM();
 
-        $userORM->setId();
-        $userORM->setAccount();
-        $userORM->setName();
-        $userORM->setSurname();
-        $userORM->setEmail();
-        $userORM->setPhone();
-        $userORM->setPassword();
-        $userORM->setCreatedAt(time());
+        $userORM->setId($user->getId());
+        $userORM->setIsActive($user->isActive());
+        $userORM->setName($user->getName());
+        $userORM->setSurname($user->getSurname());
+        $userORM->setEmail($user->getEmail());
+        $userORM->setPhone($user->getPhone());
+        $userORM->setPassword($user->getPassword());
+
+        if ($this->userORM !== null) {
+            $userORM->setUpdatedAt(time());
+            $userORM->setAccount($this->findAccountById($user->getAccountId()->toScalar()));
+        } else {
+            $accountORM = new AccountORM();
+            $accountORM->setId($user->getAccountId()->toScalar());
+            $accountORM->setCreatedAt(time());
+
+            $userORM->setAccount($accountORM);
+            $userORM->setId($user->getId()->toScalar());
+            $userORM->setRole($user->getRole()->value);
+            $userORM->setCreatedAt(time());
+        }
 
         return $userORM;
     }
 
-    /** @param ProjectORM $projectORM */
-    public function mapToDomain($projectORM): Project {
-
-        $tags = [];
-        foreach ($projectORM->getTags() as $tag) {
-            $tags = Tag::of($tag->getName());
-        }
-
-        $user = new UserId();
-
-        return new Project(
-            new ProjectId($projectORM->getId()),
-            StatusesEnum::from($projectORM->getStatus()),
-            new DescriptionData(
-                $projectORM->getName(),
-                $projectORM->getDescription(),
-            ),
-            new BusinessData(
-                FileObject::of($projectORM->getBusinessPlanPath()),
-                InvestmentRangeEnum::from($projectORM->getInvestmentMin()),
-                InvestmentRangeEnum::from($projectORM->getInvestmentMax()),
-                $tags,
-            ),
-            $user,
-            $user,
-            [$user],
-        );
+    private function findAccountById(string $id): AccountORM {
+        return $this->em->getRepository(AccountORM::class)->findOneBy(['id' => $id]);
     }
 
-    public function isNew(): bool
-    {
-        // TODO: Implement isNew() method.
+    /** @param UserORM $userORM */
+    public function mapToDomain($userORM): User {
+        $this->userORM = $userORM;
+
+        return new User(
+            new UserId($userORM->getId()),
+            new Account(new AccountId($userORM->getAccount()->getId())),
+            $userORM->getIsActive(),
+            $userORM->getName(),
+            $userORM->getSurname(),
+            $userORM->getEmail(),
+            $userORM->getPhone(),
+            $userORM->getPassword(),
+            RolesEnum::from($userORM->getRole()),
+        );
     }
 }

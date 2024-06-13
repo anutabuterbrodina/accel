@@ -6,6 +6,7 @@ use Accel\App\Core\Component\Project\Application\DTO\ProjectListFiltersDTO;
 use Accel\App\Core\Port\QueryBuilderInterface;
 use Accel\App\Core\Port\QueryServiceInterface;
 use Accel\App\Core\Port\ResultCollection;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Project;
 
 class ProjectListQuery
@@ -15,7 +16,83 @@ class ProjectListQuery
         private readonly QueryServiceInterface $queryService,
     ) {}
 
-    public function applyFilter(
+    public function execute(ProjectListFiltersDTO $filters): ResultCollection {
+        $this->queryBuilder->create(Project::class, 'Project')
+            ->select(
+                'Project.id',
+                'Project.name AS name',
+                'Project.description',
+                'Project.investmentMin',
+                'Project.investmentMax',
+                'Project.createdAt',
+                'JSON_ARRAYAGG(TagAgg.name) AS tags',
+                'JSON_ARRAYAGG(User.id) AS members',
+            )
+            ->innerJoin('Project.tags', 'Tag')
+            ->innerJoin('Project.tags', 'TagAgg')
+            ->innerJoin('Project.users', 'User');
+
+        if ($filters->getLimit() !== null) {
+            $this->queryBuilder->setMaxResults($filters->getLimit());
+        }
+
+        foreach ($filters->getTags() ?? [] as $tag) {
+            $tags[] = $tag->toScalar();
+        }
+
+        $this->applyFilter(
+            'Tag.name',
+            'IN',
+            'tags',
+            $tags ?? null,
+            102,
+        );
+        $this->applyFilter(
+            'Project.name',
+            'LIKE',
+            'projectName',
+            $filters->getNameSearchString() === null ? null : '%' . $filters->getNameSearchString() . '%',
+        );
+        $this->applyFilter(
+            'Project.investmentMin',
+            '>=',
+            'investmentMin',
+            $filters->getInvestmentMin()?->value,
+            1,
+        );
+        $this->applyFilter(
+            'Project.investmentMax',
+            '<=',
+            'investmentMax',
+            $filters->getInvestmentMax()?->value,
+            1,
+        );
+        $this->applyFilter(
+            'User.id',
+            '=',
+            'userId',
+            $filters->getUserId()?->toScalar(),
+        );
+
+//        if ($filters->getUserId() !== null) {
+//            $this->memberedBy($filters->getUserId());
+//        }
+
+        if ($filters->getSortOption() !== null) {
+            $this->queryBuilder->orderBy(
+                'Project.' . $filters->getSortOption()->value,
+                $filters->getSortOrder()->value,
+            );
+        }
+
+        $this->queryBuilder->groupByColumn('Project.id, Project.name, Project.description, Project.investmentMin, Project.investmentMax, Project.createdAt');
+
+        $queryWrapper = $this->queryBuilder->build();
+
+        return $this->queryService->query($queryWrapper);
+    }
+
+    private function applyFilter(
         string $paramAlias,
         string $operator,
         string $paramKey,
@@ -33,54 +110,11 @@ class ProjectListQuery
         }
     }
 
-    public function execute(ProjectListFiltersDTO $filters, ?string $userId = null): ResultCollection {
-        $this->queryBuilder->create(Project::class, 'Project')
-            ->select(
-                'Project.id',
-                'Project.name AS name',
-                'Project.description AS description',
-                'Project.investmentMin',
-                'Project.investmentMax',
-                'Project.createdAt',
-                'JSON_ARRAYAGG(TagAgg.name) AS tags',
-                'JSON_ARRAYAGG(User.id) AS users',
-            )
-            ->innerJoin('Project.tags', 'Tag')
-            ->innerJoin('Project.tags', 'TagAgg')
-            ->innerJoin('Project.users', 'User');
-
-        if ($filters->getLimit() !== null) {
-            $this->queryBuilder->setMaxResults($filters->getLimit());
-        }
-
-        $this->applyFilter('Tag.name', 'IN', 'tags', $filters->getTags(), 102);
-        $this->applyFilter('Project.name', 'LIKE', 'projectName', $filters->getNameSearchString());
-        $this->applyFilter('Project.investmentMin', '>=', 'investmentMin', $filters->getInvestmentMin(), 1);
-        $this->applyFilter('Project.investmentMax', '<=', 'investmentMax', $filters->getInvestmentMax(), 1);
-
-        if ($userId !== null) {
-            $this->memberedBy($userId);
-        }
-
-        if ($filters->getSortOption() !== null) {
-            $this->queryBuilder->orderBy(
-                'Project.' . $filters->getSortOption()->value,
-                $filters->getSortOrder()->value,
-            );
-        }
-
-        $this->queryBuilder->groupByColumn('Project.id, Project.name, Project.investmentMin, Project.investmentMax, Project.createdAt');
-
-        $queryWrapper = $this->queryBuilder->build();
-
-        return $this->queryService->query($queryWrapper);
-    }
-
-    private function memberedBy(string $userId): void {
-        $this->queryBuilder
-            ->innerJoin('Project.users', 'User')
-            ->andWhere('User.id = :userId')
-            ->setParameter('userId', $userId)
-        ;
-    }
+//    private function memberedBy(UserId $userId): void {
+//        $this->queryBuilder
+//            ->innerJoin('Project.users', 'User')
+//            ->andWhere('User.id = :userId')
+//            ->setParameter('userId', $userId->toScalar())
+//        ;
+//    }
 }

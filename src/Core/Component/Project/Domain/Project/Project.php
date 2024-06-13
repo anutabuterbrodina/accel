@@ -5,7 +5,7 @@ namespace Accel\App\Core\Component\Project\Domain\Project;
 use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
 use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 use Accel\Extension\Entity\AbstractEntity;
 
@@ -27,6 +27,7 @@ class Project extends AbstractEntity
 
     /** @param Tag[] $tags */
     public static function create(
+        ?ProjectId          $id,
         string              $name,
         string              $description,
         FileObject          $businessPlan,
@@ -36,7 +37,7 @@ class Project extends AbstractEntity
         array               $tags,
     ): self {
         return new self(
-            new ProjectId(),
+            $id ?? new ProjectId(),
             StatusesEnum::OnBoard,
             new DescriptionData($name, $description),
             new BusinessData($businessPlan, $requiredInvestmentMin, $requiredInvestmentMax, $tags),
@@ -93,6 +94,17 @@ class Project extends AbstractEntity
     public function changeStatus(StatusesEnum $status): void {
         $this->status = $status;
     }
+
+    public function archive(): void {
+        $this->status = StatusesEnum::Archived;
+    }
+
+    public function unarchive(): void {
+        $this->status = StatusesEnum::OnBoard;
+    }
+
+
+    /** Приватные методы */
 
 
     /** Immutable getters */

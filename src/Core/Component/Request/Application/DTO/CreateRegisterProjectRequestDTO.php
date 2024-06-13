@@ -5,7 +5,7 @@ namespace Accel\App\Core\Component\Request\Application\DTO;
 use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
 use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 
 class CreateRegisterProjectRequestDTO
 {
@@ -49,7 +49,7 @@ class CreateRegisterProjectRequestDTO
         return $this->projectRequiredInvestmentMax;
     }
 
-    /** @return Tag[] */
+    /** @return  Tag[] */
     public function getProjectTags(): array {
         return $this->projectTags;
     }

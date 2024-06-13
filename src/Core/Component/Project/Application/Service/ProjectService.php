@@ -8,7 +8,7 @@ use Accel\App\Core\Component\Project\Application\DTO\UpdateProjectCommonDataDTO;
 use Accel\App\Core\Component\Project\Application\Repository\ProjectRepository;
 use Accel\App\Core\Component\Project\Domain\Project\Project;
 use Accel\App\Core\Component\Project\Domain\Project\StatusesEnum;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 
 class ProjectService
@@ -19,6 +19,7 @@ class ProjectService
 
     public function create(CreateProjectDTO $DTO): void {
         $project = Project::create(
+            $DTO->getProjectId(),
             $DTO->getName(),
             $DTO->getDescription(),
             $DTO->getBusinessPlan(),
@@ -31,11 +32,11 @@ class ProjectService
         $this->projectRepository->add($project);
     }
 
-    public function updateStatus(ProjectId $projectId, int $statusCode): void {
+    public function updateStatus(ProjectId $projectId, string $status): void {
         $project = $this->projectRepository->findById( $projectId );
 
         $project->changeStatus(
-            StatusesEnum::from($statusCode),
+            StatusesEnum::from($status),
         );
 
         $this->projectRepository->add($project);
@@ -93,9 +94,7 @@ class ProjectService
     public function archive(ProjectId $projectId): void {
         $project = $this->projectRepository->findById( $projectId );
 
-        $project->changeStatus(
-            StatusesEnum::OnBoard,
-        );
+        $project->archive();
 
         $this->projectRepository->add($project);
     }
@@ -103,9 +102,7 @@ class ProjectService
     public function unarchive(ProjectId $projectId): void {
         $project = $this->projectRepository->findById( $projectId );
 
-        $project->changeStatus(
-            StatusesEnum::Archived,
-        );
+        $project->unarchive();
 
         $this->projectRepository->add($project);
     }

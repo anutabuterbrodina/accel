@@ -2,7 +2,7 @@
 
 namespace Accel\App\Core\Component\Request\Domain\Request;
 
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 use Accel\App\Core\SharedKernel\Component\Request\RequestId;
@@ -26,18 +26,24 @@ abstract class AbstractRequest extends AbstractEntity implements RequestInterfac
 
     abstract public function accept(UserId $moderator): void;
 
-    protected function changeStatus(): void {
-        $this->status = StatusesEnum::Accepted;
-    }
 
-    public function reject(RejectReasonsEnum $rejectReason, string $rejectMessage): void {
+    /** Публичные методы */
+
+    public function reject(UserId $moderator, RejectReasonsEnum $rejectReason, string $rejectMessage): void {
+        $this->moderator = $moderator;
         $this->rejectReason = $rejectReason;
         $this->rejectMessage = $rejectMessage;
         $this->status = StatusesEnum::Rejected;
     }
 
+    /** Приватные методы */
 
-    /** Иммутабельные геттеры */
+    protected function changeStatus(): void {
+        $this->status = StatusesEnum::Accepted;
+    }
+
+
+    /** Immutable getters */
 
     public function getId(): RequestId {
         return $this->id;

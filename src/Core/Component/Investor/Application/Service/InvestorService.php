@@ -4,12 +4,12 @@ namespace Accel\App\Core\Component\Investor\Application\Service;
 
 use Accel\App\Core\Component\Investor\Application\DTO\CreateInvestorDTO;
 use Accel\App\Core\Component\Investor\Application\DTO\UpdateInvestorDescriptionDataDTO;
-use Accel\App\Core\Component\Investor\Application\Repository\DQL\InvestorRepository;
+use Accel\App\Core\Component\Investor\Application\Repository\InvestorRepository;
 use Accel\App\Core\Component\Investor\Domain\Investor\Investor;
 use Accel\App\Core\Component\Investor\Domain\Investor\TypesEnum;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Requisites;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
 
 class InvestorService
@@ -20,6 +20,7 @@ class InvestorService
 
     public function create(CreateInvestorDTO $DTO): void {
         $investor = Investor::register(
+            $DTO->getId(),
             $DTO->getName(),
             $DTO->getDescription(),
             TypesEnum::from($DTO->getType()),
@@ -42,8 +43,8 @@ class InvestorService
         $this->investorRepository->add($investor);
     }
 
-    public function updateRequisites(InvestorId $investorId, Requisites $requisites, int $type): void {
-        $investor = $this->investorRepository->findById( $investorId );
+    public function updateRequisites(InvestorId $investorId, Requisites $requisites, string $type): void {
+        $investor = $this->investorRepository->findById($investorId);
 
         $investor->changeRequisites($requisites);
         $investor->changeType(TypesEnum::from($type));
@@ -53,7 +54,7 @@ class InvestorService
 
     /** @param Tag[] $interests */
     public function updateInterests(InvestorId $investorId, array $interests): void {
-        $investor = $this->investorRepository->findById( $investorId );
+        $investor = $this->investorRepository->findById($investorId);
 
         $investor->changeInterests($interests);
 
@@ -61,23 +62,23 @@ class InvestorService
     }
 
     public function addMember(InvestorId $investorId, UserId $userId): void {
-        $investor = $this->investorRepository->findById( $investorId );
+        $investor = $this->investorRepository->findById($investorId);
 
-        $investor->addMember( $userId );
+        $investor->addMember($userId);
 
         $this->investorRepository->add($investor);
     }
 
     public function removeMember(InvestorId $investorId, UserId $userId): void {
-        $investor = $this->investorRepository->findById( $investorId );
+        $investor = $this->investorRepository->findById($investorId);
 
-        $investor->removeMember( $userId );
+        $investor->removeMember($userId);
 
         $this->investorRepository->add($investor);
     }
 
     public function deactivate(InvestorId $investorId): void {
-        $investor = $this->investorRepository->findById( $investorId );
+        $investor = $this->investorRepository->findById($investorId);
 
         $investor->deactivate();
 
@@ -85,7 +86,7 @@ class InvestorService
     }
 
     public function activate(InvestorId $investorId): void {
-        $investor = $this->investorRepository->findById( $investorId );
+        $investor = $this->investorRepository->findById($investorId);
 
         $investor->activate();
 

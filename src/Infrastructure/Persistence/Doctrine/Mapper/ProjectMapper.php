@@ -6,16 +6,16 @@ use Accel\App\Core\Component\Project\Domain\Project\BusinessData;
 use Accel\App\Core\Component\Project\Domain\Project\DescriptionData;
 use Accel\App\Core\Component\Project\Domain\Project\Project;
 use Accel\App\Core\Component\Project\Domain\Project\StatusesEnum;
-use Accel\App\Core\Port\ProjectMapperInterface;
+use Accel\App\Core\Port\Mapper\ProjectMapperInterface;
 use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
 use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Project as ProjectORM;
+use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Tag as TagORM;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\User;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\User as UserORM;
-use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Tag as TagORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -41,11 +41,11 @@ class ProjectMapper implements ProjectMapperInterface
         $projectORM->setInvestmentMin($project->getBusinessData()->getRequiredInvestmentMin()->value);
         $projectORM->setInvestmentMax($project->getBusinessData()->getRequiredInvestmentMax()->value);
 
-        $idList = array_map(fn(UserId $userId) => $userId->toScalar(), $project->getTeam());
-        $projectORM->setUsers(new ArrayCollection($this->findUsersById($idList)));
+        $idsList = array_map(fn(UserId $userId) => $userId->toScalar(), $project->getTeam());
+        $projectORM->setUsers(new ArrayCollection($this->findUsersById($idsList)));
 
-        $tagNameList = array_map(fn(Tag $tag) => $tag->toScalar(), $project->getBusinessData()->getTags());
-        $projectORM->setTags(new ArrayCollection($this->findTagsByName($tagNameList)));
+        $tagNamesList = array_map(fn(Tag $tag) => $tag->toScalar(), $project->getBusinessData()->getTags());
+        $projectORM->setTags(new ArrayCollection($this->findTagsByName($tagNamesList)));
 
         if (null !== $old = $this->projectORM) {
             $projectORM->setUpdatedAt(time());
@@ -87,7 +87,6 @@ class ProjectMapper implements ProjectMapperInterface
 
     /** @param ProjectORM $projectORM */
     public function mapToDomain($projectORM): Project {
-
         $this->projectORM = $projectORM;
 
         $tags = [];

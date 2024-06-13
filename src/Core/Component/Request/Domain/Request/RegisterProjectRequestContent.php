@@ -5,21 +5,21 @@ namespace Accel\App\Core\Component\Request\Domain\Request;
 use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
 use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 
 class RegisterProjectRequestContent implements RequestContentInterface, \JsonSerializable
 {
     /** @param Tag[] $projectTags */
     public function __construct(
-        private readonly ?ProjectId $projectId,
-        private readonly UserId $projectCreator,
-        private readonly string $projectName,
-        private readonly string $projectDescription,
-        private readonly FileObject $projectBusinessPlan,
+        private readonly ?ProjectId          $projectId,
+        private readonly UserId              $projectCreator,
+        private readonly string              $projectName,
+        private readonly string              $projectDescription,
+        private readonly FileObject          $projectBusinessPlan,
         private readonly InvestmentRangeEnum $projectRequiredInvestmentMin,
         private readonly InvestmentRangeEnum $projectRequiredInvestmentMax,
-        private readonly array $projectTags,
+        private readonly array               $projectTags,
     ) {}
 
     public function getProjectId(): ?ProjectId {

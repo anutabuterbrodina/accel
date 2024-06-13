@@ -2,11 +2,11 @@
 
 namespace Accel\App\Core\Component\Investor\Domain\Investor;
 
-enum TypesEnum: int
+enum TypesEnum: string
 {
-    case Individual = 1;
+    case Individual = 'individual';
 
-    case LegalEntity = 2;
+    case LegalEntity = 'legal_entity';
 
-    case SoleTrader = 3;
+    case SoleTrader = 'sole_trader';
 }

@@ -53,6 +53,9 @@ class Investor
     #[ORM\Column]
     private ?int $updatedAt;
 
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    private User $owner;
+
     /** @var Collection<Tag> */
     #[ORM\ManyToMany( targetEntity: Tag::class )]
     private Collection $tags;
@@ -64,6 +67,14 @@ class Investor
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+    }
+
+    public function getOwner(): User {
+        return $this->owner;
+    }
+
+    public function setOwner(User $owner): void {
+        $this->owner = $owner;
     }
 
     /**

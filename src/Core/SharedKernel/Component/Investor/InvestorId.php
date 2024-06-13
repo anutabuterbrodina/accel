@@ -2,7 +2,6 @@
 
 namespace Accel\App\Core\SharedKernel\Component\Investor;
 
-class InvestorId
-{
+use Accel\Extension\Id\AbstractUUID;
 
-}
+class InvestorId extends AbstractUUID {}

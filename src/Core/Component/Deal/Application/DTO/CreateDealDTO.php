@@ -2,7 +2,7 @@
 
 namespace Accel\App\Core\Component\Deal\Application\DTO;
 
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 

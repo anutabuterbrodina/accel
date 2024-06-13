@@ -9,18 +9,26 @@ class ProjectDTO implements ConstructableFromArrayInterface
 {
     use ConstructableFromArrayTrait;
 
+    /** @var string[] */
+    public readonly array $tagsList;
+
+    /** @var string[] */
+    public readonly array $membersList;
+
     public function __construct(
+        private readonly string $tags,
+        private readonly string $members,
         public readonly string $id,
         public readonly string $status,
         public readonly string $name,
-        public readonly string $region,
         public readonly string $businessPlanPath,
         public readonly string $investmentMin,
         public readonly string $investmentMax,
-        public readonly string $contactEmail,
         public readonly int $createdAt,
+        public readonly string $contactId,
         public readonly ?string $description = null,
-        public readonly ?int $updatedAt = null,
-        public readonly ?array $tags = null,
-    ) {}
+    ) {
+        $this->tagsList = json_decode($tags);
+        $this->membersList = json_decode($this->members);
+    }
 }

@@ -15,6 +15,77 @@ class InvestorListQuery
         private readonly QueryServiceInterface $queryService,
     ) {}
 
+    public function execute(InvestorListFiltersDTO $filters, ?string $userId = null): ResultCollection {
+        $this->queryBuilder->create(Investor::class, 'Investor')
+            ->select(
+                'Investor.id',
+                'Investor.name AS name',
+                'Investor.description AS description',
+                'Investor.type',
+                'Investor.createdAt',
+                'JSON_ARRAYAGG(TagAgg.name) AS interests',
+                'JSON_ARRAYAGG(User.id) AS members',
+            )
+            ->innerJoin('Investor.tags', 'Tag')
+            ->innerJoin('Investor.tags', 'TagAgg')
+            ->innerJoin('Investor.users', 'User');
+
+        if ($filters->getLimit() !== null) {
+            $this->queryBuilder->setMaxResults($filters->getLimit());
+        }
+
+        foreach ($filters->getInterests() ?? [] as $interest) {
+            $interests[] = $interest->toScalar();
+        }
+
+        foreach ($filters->getTypes() ?? [] as $type) {
+            $types[] = $type->value;
+        }
+
+        $this->applyFilter(
+            'Tag.name',
+            'IN',
+            'interests',
+            $interests ?? null,
+            102
+        );
+        $this->applyFilter(
+            'Investor.type',
+            'IN',
+            'types',
+            $types ?? null,
+            102);
+        $this->applyFilter(
+            'Investor.name',
+            'LIKE',
+            'investorName',
+            $filters->getNameSearchString() === null ? null : '%' . $filters->getNameSearchString() . '%',
+        );
+        $this->applyFilter(
+            'User.id',
+            '=',
+            'userId',
+            $filters->getUserId()?->toScalar(),
+        );
+
+//        if ($userId !== null) {
+//            $this->memberedBy($userId);
+//        }
+
+        if ($filters->getSortOption() !== null) {
+            $this->queryBuilder->orderBy(
+                'Investor.' . $filters->getSortOption()->value,
+                $filters->getSortOrder()->value,
+            );
+        }
+
+        $this->queryBuilder->groupByColumn('Investor.id, Investor.name, Investor.description, Investor.type, Investor.createdAt');
+
+        $queryWrapper = $this->queryBuilder->build();
+
+        return $this->queryService->query($queryWrapper);
+    }
+
     public function applyFilter(
         string $paramAlias,
         string $operator,
@@ -33,52 +104,11 @@ class InvestorListQuery
         }
     }
 
-    public function execute(InvestorListFiltersDTO $filters, ?string $userId = null): ResultCollection {
-        $this->queryBuilder->create(Investor::class, 'Investor')
-            ->select(
-                'Investor.id',
-                'Investor.name AS name',
-                'Investor.description AS description',
-                'Investor.type',
-                'Investor.createdAt',
-                'JSON_ARRAYAGG(TagAgg.name) AS tags',
-                'JSON_ARRAYAGG(User.id) AS users',
-            )
-            ->innerJoin('Investor.tags', 'Tag')
-            ->innerJoin('Investor.tags', 'TagAgg')
-            ->innerJoin('Investor.users', 'User');
-
-        if ($filters->getLimit() !== null) {
-            $this->queryBuilder->setMaxResults($filters->getLimit());
-        }
-
-        $this->applyFilter('Tag.name', 'IN', 'tags', $filters->getTags(), 102);
-        $this->applyFilter('Investor.type', 'IN', 'types', $filters->getTypes(), 102);
-        $this->applyFilter('Investor.name', 'LIKE', 'investorName', $filters->getNameSearchString());
-
-        if ($userId !== null) {
-            $this->memberedBy($userId);
-        }
-
-        if ($filters->getSortOption() !== null) {
-            $this->queryBuilder->orderBy(
-                'Investor.' . $filters->getSortOption()->value,
-                $filters->getSortOrder()->value,
-            );
-        }
-
-        $this->queryBuilder->groupByColumn('Investor.id, Investor.name, Investor.type, Investor.createdAt');
-
-        $queryWrapper = $this->queryBuilder->build();
-
-        return $this->queryService->query($queryWrapper);
-    }
-
-    private function memberedBy(string $userId): void {
-        $this->queryBuilder
-            ->innerJoin('Investor.users', 'User')
-            ->andWhere('User.id = :userId')
-            ->setParameter('userId', $userId)
-        ;
-    }
+//    private function memberedBy(string $userId): void {
+//        $this->queryBuilder
+//            ->innerJoin('Investor.users', 'User')
+//            ->andWhere('User.id = :userId')
+//            ->setParameter('userId', $userId)
+//        ;
+//    }
 }

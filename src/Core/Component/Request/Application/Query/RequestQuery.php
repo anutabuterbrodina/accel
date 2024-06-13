@@ -12,54 +12,33 @@ final class RequestQuery
     public function __construct(
         private readonly QueryBuilderInterface $queryBuilder,
         private readonly QueryServiceInterface $queryService,
-        private          bool                  $isWithMembers = false,
-        private          bool                  $isWithTags    = false,
     ) {}
 
     public function execute(RequestId $requestId): ResultCollection {
-        $queryObj = $this->queryBuilder->create(Abstra::class, 'Project')
+        $this->queryBuilder->create('Request', 'Request')
             ->select(
-                'Project.id',
-                'Project.status',
-                'Project.name',
-                'Project.description',
-                'Project.region',
-                'Project.businessPlanPath',
-                'Project.investmentMin',
-                'Project.investmentMax',
-                'Project.contactEmail',
-                'Project.createdAt',
-                'Project.updatedAt',
+                'Request.id',
+                'Request.status',
+                'Request.type',
+                'Creator.id as creatorId',
+                'Creator.id as contactEmail',
+                'Request.creatorComment',
+                'Request.rejectReason',
+                'Request.rejectMessage',
+                'Request.content',
+                'Request.createdAt',
+                'Project.id as projectId',
+                'Investor.id as investorId',
             )
-            ->where('Project.id = :projectId')
-            ->setParam('projectId', $projectId)
+            ->innerJoin('Request.creator', 'Creator')
+            ->leftJoin('Request.project', 'Project')
+            ->leftJoin('Request.investor', 'Investor')
+            ->where('Request.id = :requestId')
+            ->setParam('requestId', $requestId->toScalar())
             ->build();
 
-        $projectData = $this->queryService->query($queryObj)
-            ->getSingleResult();
+        $queryWrapper = $this->queryBuilder->build();
 
-        if ($this->isWithTags) {
-            $projectData['tags'] = $this->findTags($projectId);
-        }
-
-        if (empty($projectData)) {
-            return new ResultCollection();
-        }
-
-        return new ResultCollection([$projectData]);
-    }
-
-    public function withMembers(): self {
-        $this->isWithMembers = true;
-        return $this;
-    }
-
-    public function withTags(): self {
-        $this->isWithTags = true;
-        return $this;
-    }
-
-    private function findTags($projectId): array {
-        return $this->tagListQuery->execute($projectId)->toArray();
+        return $this->queryService->query($queryWrapper);
     }
 }

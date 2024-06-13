@@ -105,5 +105,8 @@
             "./config/packages/routing.yaml",
             "./config/routes.yaml"
         ]
+    },
+    "web-token/jwt-bundle": {
+        "version": "3.4.3"
     }
 }

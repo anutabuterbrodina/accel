@@ -4,7 +4,7 @@ namespace Accel\App\Core\SharedKernel\Common\ValueObject;
 
 use Accel\App\Core\SharedKernel\Abstract\ValueObject\AbstractValueObject;
 
-final class FileObject extends AbstractValueObject
+final class FileObject extends AbstractValueObject implements \JsonSerializable
 {
     /**
      * @var string
@@ -21,6 +21,11 @@ final class FileObject extends AbstractValueObject
     }
 
     public function toScalar(): string
+    {
+        return $this->path;
+    }
+
+    public function jsonSerialize(): mixed
     {
         return $this->path;
     }

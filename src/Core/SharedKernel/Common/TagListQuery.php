@@ -11,7 +11,6 @@ use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Project;
 
 class TagListQuery
 {
-    private const TAG_ALIAS = 'tag';
 
     public function __construct(
         private readonly QueryBuilderInterface $queryBuilder,
@@ -21,7 +20,7 @@ class TagListQuery
     /** @param ProjectId|InvestorId $id */
     public function execute($id): ResultCollection {
         $queryWrapper = $this->queryBuilder->create(Project::class, 'Project')
-            ->select('Tag.name AS ' . self::TAG_ALIAS)
+            ->select('Tag.name AS tag')
             ->innerJoin('Project.tags', 'Tag')
             ->where('Project.id = :projectId')
             ->setParameter('projectId', $id->toScalar())

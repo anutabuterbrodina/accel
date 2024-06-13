@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Accel\App\Core\Port;
 
+use Accel\App\Core\Port\Mapper\MapperInterface;
+use Accel\Extension\Entity\AbstractEntity;
 use Accel\Extension\Entity\EntityInterface;
 use Accel\Extension\Helpers\ConstructableFromArrayInterface;
 
@@ -47,7 +49,7 @@ final class ResultCollection implements \JsonSerializable
 
 
     /** @param string|EntityInterface $fqcn */
-    public function mapSingleResultTo(string | EntityInterface $fqcn, MapperInterface $mapper) {
+    public function mapSingleResultTo(string | EntityInterface $fqcn, MapperInterface $mapper): AbstractEntity {
         if (!is_subclass_of($fqcn, EntityInterface::class)) {
             throw new \Exception('Это не сущность: ' . $fqcn);
         }

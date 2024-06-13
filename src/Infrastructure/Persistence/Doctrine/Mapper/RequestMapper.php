@@ -8,14 +8,15 @@ use Accel\App\Core\Component\Request\Domain\Request\RegisterInvestorRequest as R
 use Accel\App\Core\Component\Request\Domain\Request\RegisterProjectRequest as RegisterProjectReq;
 use Accel\App\Core\Component\Request\Domain\Request\StatusesEnum;
 use Accel\App\Core\Component\Request\Domain\Request\TypesEnum;
-use Accel\App\Core\Port\RequestMapperInterface;
+use Accel\App\Core\Port\Mapper\RequestMapperInterface;
+use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
+use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
-use Accel\App\Core\SharedKernel\Component\Auth\UserId;
+use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 use Accel\App\Core\SharedKernel\Component\Request\RequestId;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Project as ProjectORM;
-use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Investor as InvestorORM;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Request as RequestORM;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\User;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\User as UserORM;
@@ -146,9 +147,9 @@ class RequestMapper implements RequestMapperInterface
             $projectId,
             $content['projectName'],
             $content['projectDescription'],
-            $content['projectBusinessPlan'],
-            $content['projectRequiredInvestmentMin'],
-            $content['projectRequiredInvestmentMax'],
+            FileObject::of($content['projectBusinessPlan']),
+            InvestmentRangeEnum::from($content['projectRequiredInvestmentMin']),
+            InvestmentRangeEnum::from($content['projectRequiredInvestmentMax']),
             $tags
         );
     }

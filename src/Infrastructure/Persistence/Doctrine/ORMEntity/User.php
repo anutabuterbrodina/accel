@@ -33,12 +33,15 @@ class User
     private string $role;
 
     #[ORM\Column]
+    private bool $isActive;
+
+    #[ORM\Column]
     private int $createdAt;
 
     #[ORM\Column]
     private ?int $updatedAt;
 
-    #[ORM\OneToOne(targetEntity: Account::class)]
+    #[ORM\OneToOne(targetEntity: Account::class, cascade: ["persist"])]
     private Account $account;
 
     /**
@@ -170,6 +173,22 @@ class User
     }
 
     /**
+     * @return bool
+     */
+    public function getIsActive(): bool
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param bool $isActive
+     */
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
      * @return int
      */
     public function getCreatedAt(): int
@@ -200,51 +219,4 @@ class User
     {
         $this->updatedAt = $updatedAt;
     }
-
-//    /** @var Collection<Project> */
-//    #[ORM\ManyToMany(targetEntity: Project::class)]
-//    private Collection $projects;
-//
-//    /** @var Collection<Project> */
-//    #[ORM\ManyToMany(targetEntity: Tag::class)]
-//    private Collection $investors;
-//
-//    public function __construct() {
-//        $this->projects = new ArrayCollection();
-//        $this->investors = new ArrayCollection();
-//    }
-//
-//    /**
-//     * @return Collection<Project>
-//     */
-//    public function getProjects(): Collection
-//    {
-//        return $this->projects;
-//    }
-//
-//    /**
-//     * @param Collection<Project> $projects
-//     */
-//    public function setProjects(Collection $projects): void
-//    {
-//        $this->projects = $projects;
-//    }
-//
-//    /**
-//     * @return Collection<Investor>
-//     */
-//    public function getInvestors(): Collection
-//    {
-//        return $this->investors;
-//    }
-//
-//    /**
-//     * @param Collection<Investor> $investors
-//     */
-//    public function setInvestors(Collection $investors): void
-//    {
-//        $this->investors = $investors;
-//    }
-
-
 }

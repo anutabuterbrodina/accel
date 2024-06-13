@@ -2,67 +2,42 @@
 
 namespace Accel\App\Core\Component\Project\Application\Query;
 
+use Accel\App\Core\Component\Project\Domain\Project\Project;
 use Accel\App\Core\Port\QueryBuilderInterface;
 use Accel\App\Core\Port\QueryServiceInterface;
 use Accel\App\Core\Port\ResultCollection;
-use Accel\App\Core\SharedKernel\Common\TagListQuery;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
-use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Project;
 
 final class ProjectQuery
 {
     public function __construct(
         private readonly QueryBuilderInterface $queryBuilder,
         private readonly QueryServiceInterface $queryService,
-        private readonly TagListQuery          $tagListQuery,
-        private          bool                  $isWithMembers = false,
-        private          bool                  $isWithTags    = false,
     ) {}
 
     public function execute(ProjectId $projectId): ResultCollection {
-        $queryObj = $this->queryBuilder->create(Project::class, 'Project')
+        $this->queryBuilder->create(Project::class, 'Project')
             ->select(
                 'Project.id',
                 'Project.status',
                 'Project.name',
                 'Project.description',
-                'Project.region',
                 'Project.businessPlanPath',
                 'Project.investmentMin',
                 'Project.investmentMax',
-                'Project.contactEmail',
                 'Project.createdAt',
-                'Project.updatedAt',
+                'Contact.id as contactId',
+                'JSON_ARRAYAGG(Tag.name) AS tags',
+                'JSON_ARRAYAGG(Member.id) AS members',
             )
+            ->innerJoin('Project.tags', 'Tag')
+            ->innerJoin('Project.users', 'Member')
+            ->innerJoin('Project.contact', 'Contact')
             ->where('Project.id = :projectId')
-            ->setParam('projectId', $projectId)
-            ->build();
+            ->setParam('projectId', $projectId->toScalar());
 
-        $projectData = $this->queryService->query($queryObj)
-            ->getSingleResult();
+        $queryWrapper = $this->queryBuilder->build();
 
-        if ($this->isWithTags) {
-            $projectData['tags'] = $this->findTags($projectId);
-        }
-
-        if (empty($projectData)) {
-            return new ResultCollection();
-        }
-
-        return new ResultCollection([$projectData]);
-    }
-
-    public function withMembers(): self {
-        $this->isWithMembers = true;
-        return $this;
-    }
-
-    public function withTags(): self {
-        $this->isWithTags = true;
-        return $this;
-    }
-
-    private function findTags($projectId): array {
-        return $this->tagListQuery->execute($projectId)->toArray();
+        return $this->queryService->query($queryWrapper);
     }
 }

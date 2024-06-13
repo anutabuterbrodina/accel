@@ -2,11 +2,12 @@
 
 namespace Accel\App\Infrastructure\Persistence\Doctrine;
 
-use Accel\App\Core\Port\MapperInterface;
+use Accel\App\Core\Port\Mapper\MapperInterface;
 use Accel\App\Core\Port\PersistenceServiceInterface;
 use Accel\App\Core\Port\QueryInterface;
 use Accel\App\Core\Port\QueryServiceInterface;
 use Accel\App\Core\Port\ResultCollection;
+use Accel\Extension\Entity\AbstractEntity;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 
@@ -33,7 +34,7 @@ class PersistenceService implements QueryServiceInterface, PersistenceServiceInt
         return new ResultCollection($query->execute());
     }
 
-    public function upsert($entity, MapperInterface $mapper = null): void {
+    public function upsert(AbstractEntity $entity, MapperInterface $mapper = null): void {
         $entityORM = $mapper === null ? $entity : $mapper->mapToORM($entity);
         $this->em->persist($entityORM);
         $this->em->flush();
