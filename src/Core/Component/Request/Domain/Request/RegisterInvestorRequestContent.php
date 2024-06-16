@@ -52,12 +52,12 @@ class RegisterInvestorRequestContent implements RequestContentInterface, \JsonSe
     public function jsonSerialize(): array
     {
         return [
-            "investorId" => $this->getInvestorId(),
-            "investorName" => $this->getInvestorName(),
-            "investorType" => $this->getInvestorType(),
-            "investorDescription" => $this->getInvestorDescription(),
-            "investorRequisites" => $this->getInvestorRequisites(),
-            "investorTags" => $this->getInvestorInterests(),
+            "id" => $this->getInvestorId(),
+            "name" => $this->getInvestorName(),
+            "type" => $this->getInvestorType(),
+            "description" => $this->getInvestorDescription(),
+            "requisites" => $this->getInvestorRequisites(),
+            "tags" => $this->getInvestorInterests(),
         ];
     }
 }

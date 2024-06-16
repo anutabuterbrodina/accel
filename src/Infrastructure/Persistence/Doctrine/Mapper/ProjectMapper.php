@@ -47,16 +47,12 @@ class ProjectMapper implements ProjectMapperInterface
         $tagNamesList = array_map(fn(Tag $tag) => $tag->toScalar(), $project->getBusinessData()->getTags());
         $projectORM->setTags(new ArrayCollection($this->findTagsByName($tagNamesList)));
 
+
+        $projectORM->setContact($this->findUserById($project->getContact()->toScalar()));
+        $projectORM->setOwner($this->findUserById($project->getOwner()->toScalar()));
+
         if (null !== $old = $this->projectORM) {
             $projectORM->setUpdatedAt(time());
-
-            if ($old->getContact()->getId() !== $newContactId = $project->getContact()->toScalar()) {
-                $projectORM->setContact($this->findUserById($newContactId));
-            }
-
-            if ($old->getOwner()->getId() !== $newOwnerId = $project->getOwner()->toScalar()) {
-                $projectORM->setOwner($this->findUserById($newOwnerId));
-            }
         } else {
             $projectORM->setId($project->getId()->toScalar());
             $projectORM->setCreatedAt(time());

@@ -37,11 +37,11 @@ final class Requisites extends AbstractValueObject implements \JsonSerializable
         return [
             "legalName" => $this->legalName,
             "address" => $this->address,
-            "inn" => $this->inn,
-            "ogrn" => $this->ogrn,
-            "kpp" => $this->kpp,
-            "okpo" => $this->okpo,
-            "bik" => $this->bik,
+            "INN" => $this->inn,
+            "OGRN" => $this->ogrn,
+            "KPP" => $this->kpp,
+            "OKPO" => $this->okpo,
+            "BIK" => $this->bik,
         ];
     }
 

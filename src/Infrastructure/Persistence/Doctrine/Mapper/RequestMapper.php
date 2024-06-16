@@ -6,6 +6,8 @@ use Accel\App\Core\Component\Request\Domain\Request\ChangeInvestorRequisitesRequ
 use Accel\App\Core\Component\Request\Domain\Request\ChangeProjectBusinessDataRequest as ChangeProjectReq;
 use Accel\App\Core\Component\Request\Domain\Request\RegisterInvestorRequest as RegisterInvestorReq;
 use Accel\App\Core\Component\Request\Domain\Request\RegisterProjectRequest as RegisterProjectReq;
+use Accel\App\Core\Component\Request\Domain\Request\RegisterProjectRequestContent as RegisterProjectReqCon;
+use Accel\App\Core\Component\Request\Domain\Request\RejectReasonsEnum;
 use Accel\App\Core\Component\Request\Domain\Request\StatusesEnum;
 use Accel\App\Core\Component\Request\Domain\Request\TypesEnum;
 use Accel\App\Core\Port\Mapper\RequestMapperInterface;
@@ -67,7 +69,7 @@ class RequestMapper implements RequestMapperInterface
 
             $old = $this->requestORM;
 
-            if ($old->getModerator()->getId() !== $newModeratorId = $request->getModerator()->toScalar()) {
+            if ($old->getModerator()?->getId() !== $newModeratorId = $request->getModerator()?->toScalar()) {
                 $requestORM->setModerator($this->findUserById($newModeratorId));
             }
         }
@@ -79,7 +81,7 @@ class RequestMapper implements RequestMapperInterface
         return $this->em->getRepository(UserORM::class)->findOneBy(['id' => $id]);
     }
 
-    private function findProjectById(string $id): ProjectORM {
+    private function findProjectById(string $id): ?ProjectORM {
         return $this->em->getRepository(UserORM::class)->findOneBy(['id' => $id]);
     }
 
@@ -99,18 +101,18 @@ class RequestMapper implements RequestMapperInterface
         $this->requestORM = $requestORM;
 
         $creatorId = new UserId($requestORM->getCreator()->getId());
-        $moderatorId = new UserId($requestORM->getModerator()?->getId());
-        $projectId = new ProjectId($requestORM->getProject()?->getId());
-        $investorId = new InvestorId($requestORM->getInvestor()?->getId());
+        $moderatorId = $requestORM->getModerator() ? new UserId($requestORM->getModerator()->getId()) : null;
+        $projectId = $requestORM->getProject() ? new ProjectId($requestORM->getProject()?->getId()) : null;
+        $investorId = $requestORM->getInvestor() ? new InvestorId($requestORM->getInvestor()?->getId()) : null;
 
         $content = json_decode($requestORM->getContent(), true);
 
         switch ($type = $requestORM->getType()) {
-            case TypesEnum::RegisterInvestor->value:
-                $this->mapToRegisterInvestor($requestORM, $creatorId, $moderatorId, $investorId, $content);
-
             case TypesEnum::RegisterProject->value:
-                $this->mapToRegisterProject($requestORM, $creatorId, $moderatorId, $projectId, $content);
+                return $this->mapToRegisterProject($requestORM, $creatorId, $moderatorId, $projectId, $content);
+
+            case TypesEnum::RegisterInvestor->value:
+                return $this->mapToRegisterInvestor($requestORM, $creatorId, $moderatorId, $investorId, $content);
 
             case TypesEnum::ChangeInvestorRequisites->value:
                 throw new \Exception('В процессе...');
@@ -126,12 +128,12 @@ class RequestMapper implements RequestMapperInterface
     private function mapToRegisterProject(
         RequestORM $requestORM,
         UserId $creatorId,
-        UserId $moderatorId,
-        ProjectId $projectId,
+        ?UserId $moderatorId,
+        ?ProjectId $projectId,
         array $content,
     ): RegisterProjectReq {
         $tags = [];
-        foreach ($content['projectTags'] as $tagName) {
+        foreach ($content['tags'] as $tagName) {
             $tags[] = Tag::of($tagName);
         }
 
@@ -142,15 +144,19 @@ class RequestMapper implements RequestMapperInterface
             $creatorId,
             $requestORM->getCreatorComment(),
             $moderatorId,
-            $requestORM->getRejectReason(),
+            $requestORM->getRejectReason() ? RejectReasonsEnum::from($requestORM->getRejectReason()) : null,
             $requestORM->getRejectMessage(),
             $projectId,
-            $content['projectName'],
-            $content['projectDescription'],
-            FileObject::of($content['projectBusinessPlan']),
-            InvestmentRangeEnum::from($content['projectRequiredInvestmentMin']),
-            InvestmentRangeEnum::from($content['projectRequiredInvestmentMax']),
-            $tags
+            new RegisterProjectReqCon(
+                $projectId,
+                $creatorId,
+                $content['name'],
+                $content['description'],
+                FileObject::of($content['businessPlan']),
+                InvestmentRangeEnum::from($content['investmentMin']),
+                InvestmentRangeEnum::from($content['investmentMax']),
+                $tags
+            ),
         );
     }
 
@@ -175,8 +181,8 @@ class RequestMapper implements RequestMapperInterface
             $moderatorId,
             $requestORM->getRejectReason(),
             $requestORM->getRejectMessage(),
-            $content['investorName'],
-            $content['investorDescription'],
+            $content['name'],
+            $content['description'],
         );
     }
 }

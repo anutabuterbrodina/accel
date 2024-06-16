@@ -48,11 +48,11 @@ class ChangeProjectBusinessDataRequestContent implements RequestContentInterface
     public function jsonSerialize(): array
     {
         return [
-            "projectId" => $this->getProjectId(),
-            "projectBusinessPlan" => $this->getProjectBusinessPlan(),
-            "projectRequiredInvestmentMin" => $this->getProjectRequiredInvestmentMin(),
-            "projectRequiredInvestmentMax" => $this->getProjectRequiredInvestmentMax(),
-            "projectTags" => $this->getProjectTags(),
+            "id" => $this->getProjectId(),
+            "businessPlan" => $this->getProjectBusinessPlan(),
+            "investmentMin" => $this->getProjectRequiredInvestmentMin(),
+            "investmentMax" => $this->getProjectRequiredInvestmentMax(),
+            "tags" => $this->getProjectTags(),
         ];
     }
 }

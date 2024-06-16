@@ -15,7 +15,9 @@ class RequestListItemDTO implements ConstructableFromArrayInterface
         public readonly string  $type,
         public readonly int     $createdAt,
         public readonly string  $creatorId,
+        public readonly string  $creatorEmail,
         public readonly ?string $rejectReason = null,
+        public readonly ?string $rejectMessage = null,
         public readonly ?string $projectId = null,
         public readonly ?string $investorId = null,
     ) {}

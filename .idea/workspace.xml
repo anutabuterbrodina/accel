@@ -5,76 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="157080a4-8f32-454b-85af-8a4d29031a81" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Auth/Domain/Account/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/User/Domain/Account/Account.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Auth/Domain/Account/AccountId.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/User/Domain/Account/AccountId.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Auth/Domain/User/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/User/Domain/User/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Deal/Application/DTO/CreateDealDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Application/DTO/CreateDealDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Deal/Application/Repository/DQL/DealRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Application/Repository/DealRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Deal/Application/Service/DealService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Application/Service/DealService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Deal/Domain/Deal/Deal.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Deal/Domain/Deal/Deal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Application/DTO/CreateInvestorDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/DTO/CreateInvestorDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Application/DTO/InvestorListFiltersDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/DTO/InvestorListFiltersDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Application/DTO/investorListSortOptionsEnum.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/DTO/InvestorListSortOptionsEnum.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Query/InvestorListQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Query/InvestorListQuery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Repository/DQL/InvestorRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Repository/InvestorRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Service/InvestorService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Service/InvestorService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Domain/Investor/Investor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Domain/Investor/Investor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Domain/Investor/TypesEnum.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Domain/Investor/TypesEnum.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Project/Application/DTO/CreateProjectDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/DTO/CreateProjectDTO.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Component/Project/Application/DTO/ProjectListFiltersDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/DTO/ProjectListFiltersDTO.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Component/Project/Application/Query/ProjectListQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/Query/ProjectListQuery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Project/Application/Query/ProjectQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/Query/ProjectQuery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Project/Application/Repository/ProjectRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/Repository/ProjectRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Project/Application/Service/ProjectService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/Service/ProjectService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Project/Domain/Project/Project.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Project/Domain/Project/Project.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Application/DTO/CreateRegisterProjectRequestDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Application/DTO/CreateRegisterProjectRequestDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Application/Query/RequestQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Application/Query/RequestQuery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Application/Repository/DQL/RequestRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Application/Repository/RequestRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Application/Query/RequestListQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Application/Query/RequestListQuery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Application/Repository/RequestRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Application/Repository/RequestRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Application/Service/RequestService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Application/Service/RequestService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/AbstractRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/AbstractRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeInvestorRequisitesRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeInvestorRequisitesRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeProjectBusinessDataRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeProjectBusinessDataRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RegisterInvestorRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RegisterInvestorRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeInvestorRequisitesRequestContent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeInvestorRequisitesRequestContent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeProjectBusinessDataRequestContent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeProjectBusinessDataRequestContent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RegisterInvestorRequestContent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RegisterInvestorRequestContent.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RegisterProjectRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RegisterProjectRequest.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RegisterProjectRequestContent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RegisterProjectRequestContent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RequestInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RequestInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Port/MapperInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Port/Mapper/MapperInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Port/PersistenceServiceInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Port/PersistenceServiceInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Port/ProjectMapperInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Port/Mapper/ProjectMapperInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Port/RequestMapperInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Port/Mapper/RequestMapperInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Core/Component/User/Domain/User/RolesEnum.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/User/Domain/User/RolesEnum.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Port/ResultCollection.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Port/ResultCollection.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/SharedKernel/Common/TagListQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Common/TagListQuery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/SharedKernel/Common/ValueObject/FileObject.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Common/ValueObject/FileObject.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/SharedKernel/Common/ValueObject/Requisites.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Common/ValueObject/Requisites.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Auth/UserId.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/User/UserId.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Investor/InvestorId.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Investor/InvestorId.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Request/RequestId.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/SharedKernel/Component/Request/RequestId.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/DQLQueryBuilder.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/DQLQueryBuilder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/MapperFactory.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/ProjectMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/ProjectMapper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/RequestMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/RequestMapper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/UserMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/UserMapper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/ORMEntity/Account.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/ORMEntity/Account.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/ORMEntity/Investor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/ORMEntity/Investor.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/ORMEntity/Project.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/ORMEntity/Project.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/ORMEntity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/ORMEntity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/PersistenceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/PersistenceService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Query/DQLQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/DQLQuery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/DTO/InvestorListItemDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/DTO/InvestorListItemDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/DTO/ProjectDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/DTO/ProjectDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/DTO/ProjectListItemDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/DTO/ProjectListItemDTO.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/DTO/RequestDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/DTO/RequestDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/InvestorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/InvestorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/InvestorListController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/InvestorListController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/ProjectController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/ProjectController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/DTO/RequestListItemDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/DTO/RequestListItemDTO.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/ProjectListController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/ProjectListController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/RequestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/RequestController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/RequestListController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/RequestListController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/UserListController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/UserListController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -267,7 +223,7 @@
       <workItem from="1718011769326" duration="33354000" />
       <workItem from="1718182568689" duration="8309000" />
       <workItem from="1718195622306" duration="24092000" />
-      <workItem from="1718258176659" duration="6987000" />
+      <workItem from="1718258176659" duration="46707000" />
     </task>
     <servers />
   </component>

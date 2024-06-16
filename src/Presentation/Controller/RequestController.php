@@ -59,6 +59,7 @@ class RequestController
         // TODO: Перевести на EventSourcing
 
         $type = TypeHelper::getType($content);
+
         switch ($type) {
             case RegisterProjectRequestContent::class: {
                 /** @var RegisterProjectRequestContent $content */
@@ -135,5 +136,6 @@ class RequestController
             $request->getParsedBody()['rejectMessage'],
         );
 
+        return new Response('Заявка отклонена');
     }
 }

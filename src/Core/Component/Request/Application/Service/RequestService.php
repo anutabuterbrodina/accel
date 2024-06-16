@@ -87,8 +87,8 @@ class RequestService
         return $request->getContent();
     }
 
-    public function reject(RequestId $requestId, UserId $moderator, string $rejectReason, string $rejectMessage): void {
-        $request = $this->requestRepository->findById( $requestId );
+    public function reject(RequestId $requestId, UserId $moderator, string $rejectReason, ?string $rejectMessage): void {
+        $request = $this->requestRepository->findById($requestId);
 
         $request->reject(
             $moderator,

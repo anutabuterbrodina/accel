@@ -50,9 +50,9 @@ final class ResultCollection implements \JsonSerializable
 
     /** @param string|EntityInterface $fqcn */
     public function mapSingleResultTo(string | EntityInterface $fqcn, MapperInterface $mapper): AbstractEntity {
-        if (!is_subclass_of($fqcn, EntityInterface::class)) {
-            throw new \Exception('Это не сущность: ' . $fqcn);
-        }
+//        if (!is_subclass_of($fqcn, EntityInterface::class)) {
+//            throw new \Exception('Это не сущность: ' . $fqcn);
+//        }
 
         // TODO: Добавить проверку на то, что маппер умеет работать с переданным типом сущности
 

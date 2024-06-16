@@ -9,8 +9,8 @@ class RequestDTO implements ConstructableFromArrayInterface
 {
     use ConstructableFromArrayTrait;
 
-    /** @var string[] */
-    public readonly array $requestContent;
+    /** @var \stdClass */
+    public readonly \stdClass $requestContent;
 
     public function __construct(
         private readonly string  $content,

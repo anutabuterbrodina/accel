@@ -41,6 +41,10 @@ class Project
     #[ORM\Column]
     private ?int $updatedAt;
 
+    /** @var Collection<Bookmark> */
+    #[ORM\OneToMany(targetEntity: Bookmark::class, mappedBy: 'project')]
+    private Collection $bookmarks;
+
     #[ORM\ManyToOne(targetEntity: User::class)]
     private User $owner;
 
@@ -73,6 +77,22 @@ class Project
 
     public function setContact(User $contact): void {
         $this->contact = $contact;
+    }
+
+    /**
+     * @return Collection<Bookmark>
+     */
+    public function getBookmarks(): Collection
+    {
+        return $this->bookmarks;
+    }
+
+    /**
+     * @param Collection<Bookmark> $bookmarks
+     */
+    public function setBookmarks(Collection $bookmarks): void
+    {
+        $this->bookmarks = $bookmarks;
     }
 
     /**

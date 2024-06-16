@@ -3,6 +3,10 @@
 namespace Accel\App\Core\Component\Request\Application\Repository;
 
 use Accel\App\Core\Component\Request\Domain\Request\AbstractRequest;
+use Accel\App\Core\Component\Request\Domain\Request\ChangeInvestorRequisitesRequest as ChangeInvestorReq;
+use Accel\App\Core\Component\Request\Domain\Request\ChangeProjectBusinessDataRequest as ChangeProjectReq;
+use Accel\App\Core\Component\Request\Domain\Request\RegisterInvestorRequest as RegisterInvestorReq;
+use Accel\App\Core\Component\Request\Domain\Request\RegisterProjectRequest as RegisterProjectReq;
 use Accel\App\Core\Component\Request\Domain\Request\RequestInterface;
 use Accel\App\Core\Port\Mapper\RequestMapperInterface;
 use Accel\App\Core\Port\PersistenceServiceInterface;
@@ -19,21 +23,24 @@ class RequestRepository
         private readonly RequestMapperInterface       $requestMapper,
     ) {}
 
-    public function findById(RequestId $id): RequestInterface {
+    public function findById(RequestId $id): RegisterProjectReq
+                                            | RegisterInvestorReq
+                                            | ChangeInvestorReq
+                                            | ChangeProjectReq {
         $query = $this->queryBuilder->create('', 'Request')
             ->where('Request.id = :id')
             ->setParameter('id', $id->toScalar())
             ->build();
 
-        /** @var RequestInterface $entity */
+        /** @var RegisterProjectReq|RegisterInvestorReq|ChangeInvestorReq|ChangeProjectReq $entity */
         $entity = $this->queryService
             ->query($query)
-            ->mapSingleResultTo(RequestInterface::class, $this->requestMapper);
+            ->mapSingleResultTo(AbstractRequest::class, $this->requestMapper);
 
         return $entity;
     }
 
-    public function add(RequestInterface $request): void {
+    public function add(RegisterProjectReq|RegisterInvestorReq|ChangeInvestorReq|ChangeProjectReq $request): void {
         $this->persistenceService->upsert($request, $this->requestMapper);
     }
 }

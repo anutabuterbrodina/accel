@@ -34,9 +34,9 @@ class ChangeInvestorRequisitesRequestContent implements RequestContentInterface,
     public function jsonSerialize(): array
     {
         return [
-            "investorId" => $this->getInvestorId(),
-            "investorType" => $this->getInvestorType(),
-            "investorRequisites" => $this->getInvestorRequisites(),
+            "id" => $this->getInvestorId(),
+            "type" => $this->getInvestorType(),
+            "requisites" => $this->getInvestorRequisites(),
         ];
     }
 }

@@ -17,8 +17,8 @@ abstract class AbstractRequest extends AbstractEntity implements RequestInterfac
         protected readonly UserId                        $creator,
         protected readonly string                        $creatorComment,
         protected          ?UserId                       $moderator = null,
-        protected          ?string                       $rejectMessage = null,
         protected          ?RejectReasonsEnum            $rejectReason = null,
+        protected          ?string                       $rejectMessage = null,
         protected          null | ProjectId | InvestorId $targetEntityId = null,
     ) {}
 

@@ -81,7 +81,9 @@ class RegisterProjectRequest extends AbstractRequest
     /** Публичные методы */
 
     public function accept(UserId $moderator): void {
-        $this->targetEntityId = new ProjectId();
+        $projectId = new ProjectId();
+        $this->targetEntityId = $projectId;
+        $this->setProjectId($projectId);
 
         $this->moderator = $moderator;
         parent::changeStatus();
@@ -94,5 +96,9 @@ class RegisterProjectRequest extends AbstractRequest
 
     public function getContent(): RegisterProjectRequestContent {
         return $this->content;
+    }
+
+    public function setProjectId(ProjectId $projectId): void {
+        $this->content->setProjectId($projectId);
     }
 }

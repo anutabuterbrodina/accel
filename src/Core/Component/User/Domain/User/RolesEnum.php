@@ -4,6 +4,8 @@ namespace Accel\App\Core\Component\User\Domain\User;
 
 enum RolesEnum: string
 {
+    case Anonymous = 'anonymous';
+
     case CommonUser = 'user';
 
     case Admin = 'admin';

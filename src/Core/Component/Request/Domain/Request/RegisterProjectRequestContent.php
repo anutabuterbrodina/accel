@@ -12,7 +12,7 @@ class RegisterProjectRequestContent implements RequestContentInterface, \JsonSer
 {
     /** @param Tag[] $projectTags */
     public function __construct(
-        private readonly ?ProjectId          $projectId,
+        private          ?ProjectId          $projectId,
         private readonly UserId              $projectCreator,
         private readonly string              $projectName,
         private readonly string              $projectDescription,
@@ -55,16 +55,20 @@ class RegisterProjectRequestContent implements RequestContentInterface, \JsonSer
         return $this->projectTags;
     }
 
+    public function setProjectId(ProjectId $projectId): void {
+        $this->projectId = $projectId;
+    }
+
     public function jsonSerialize(): array
     {
         return [
-            "projectId" => $this->getProjectId(),
-            "projectName" => $this->getProjectName(),
-            "projectDescription" => $this->getProjectDescription(),
-            "projectBusinessPlan" => $this->getProjectBusinessPlan(),
-            "projectRequiredInvestmentMin" => $this->getProjectRequiredInvestmentMin(),
-            "projectRequiredInvestmentMax" => $this->getProjectRequiredInvestmentMax(),
-            "projectTags" => $this->getProjectTags(),
+            "id" => $this->getProjectId(),
+            "name" => $this->getProjectName(),
+            "description" => $this->getProjectDescription(),
+            "businessPlan" => $this->getProjectBusinessPlan(),
+            "investmentMin" => $this->getProjectRequiredInvestmentMin(),
+            "investmentMax" => $this->getProjectRequiredInvestmentMax(),
+            "tags" => $this->getProjectTags(),
         ];
     }
 }

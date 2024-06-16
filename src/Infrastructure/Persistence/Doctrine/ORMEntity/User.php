@@ -44,6 +44,26 @@ class User
     #[ORM\OneToOne(targetEntity: Account::class, cascade: ["persist"])]
     private Account $account;
 
+//    /** @var Collection<Bookmark>|null */
+//    #[ORM\OneToMany(targetEntity: Bookmark::class)]
+//    private ?Collection $bookmarks;
+//
+//    /**
+//     * @return Collection<Bookmark>|null
+//     */
+//    public function getBookmarks(): ?Collection
+//    {
+//        return $this->bookmarks;
+//    }
+//
+//    /**
+//     * @param Collection<Bookmark>|null $bookmarks
+//     */
+//    public function setBookmarks(?Collection $bookmarks): void
+//    {
+//        $this->bookmarks = $bookmarks;
+//    }
+
     /**
      * @return Account
      */

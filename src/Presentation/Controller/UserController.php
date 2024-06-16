@@ -118,6 +118,13 @@ class UserController
             )
         );
 
-        return new JsonResponse(["userId" => $user->getId()->toScalar(), "token" => $authToken]);
+        return new JsonResponse([
+            "payload" => [
+                "id" => $user->getId()->toScalar(),
+                "email" => $user->getEmail(),
+                "role" => $user->getRole(),
+            ],
+            "token" => $authToken
+        ]);
     }
 }

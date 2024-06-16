@@ -6,7 +6,7 @@ use Accel\App\Core\Component\Project\Application\DTO\ProjectListFiltersDTO;
 use Accel\App\Core\Port\QueryBuilderInterface;
 use Accel\App\Core\Port\QueryServiceInterface;
 use Accel\App\Core\Port\ResultCollection;
-use Accel\App\Core\SharedKernel\Component\User\UserId;
+use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Project;
 
 class ProjectListQuery
@@ -16,7 +16,8 @@ class ProjectListQuery
         private readonly QueryServiceInterface $queryService,
     ) {}
 
-    public function execute(ProjectListFiltersDTO $filters): ResultCollection {
+    /** @param ProjectId[] $projectIdList */
+    public function execute(ProjectListFiltersDTO $filters, array $projectIdList): ResultCollection {
         $this->queryBuilder->create(Project::class, 'Project')
             ->select(
                 'Project.id',
@@ -40,6 +41,19 @@ class ProjectListQuery
             $tags[] = $tag->toScalar();
         }
 
+        // TODO: Redo
+        foreach ($projectIdList as $id) {
+            $projectIds[] = $id->toScalar();
+        }
+
+        $this->applyFilter(
+            'Project.id',
+            'IN',
+            'projects',
+            $projectIds ?? null,
+            102,
+        );
+
         $this->applyFilter(
             'Tag.name',
             'IN',
@@ -57,14 +71,14 @@ class ProjectListQuery
             'Project.investmentMin',
             '>=',
             'investmentMin',
-            $filters->getInvestmentMin()?->value,
+            $filters->getInvestmentMin(),
             1,
         );
         $this->applyFilter(
             'Project.investmentMax',
             '<=',
             'investmentMax',
-            $filters->getInvestmentMax()?->value,
+            $filters->getInvestmentMax(),
             1,
         );
         $this->applyFilter(

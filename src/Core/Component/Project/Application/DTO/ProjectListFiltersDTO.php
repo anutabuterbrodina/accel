@@ -15,8 +15,8 @@ class ProjectListFiltersDTO
         private readonly ?array                      $tags = null,
         private readonly ?UserId                     $userId = null,
         private readonly ?string                     $nameSearchString = null,
-        private readonly ?InvestmentRangeEnum        $investmentMin = null,
-        private readonly ?InvestmentRangeEnum        $investmentMax = null,
+        private readonly ?int                        $investmentMin = null,
+        private readonly ?int                        $investmentMax = null,
         private readonly ?ProjectListSortOptionsEnum $sortOption = null,
         private readonly ?SortOrderEnum              $sortOrder = null,
     ) {}
@@ -38,11 +38,11 @@ class ProjectListFiltersDTO
         return $this->nameSearchString;
     }
 
-    public function getInvestmentMin(): ?InvestmentRangeEnum {
+    public function getInvestmentMin(): ?int {
         return $this->investmentMin;
     }
 
-    public function getInvestmentMax(): ?InvestmentRangeEnum {
+    public function getInvestmentMax(): ?int {
         return $this->investmentMax;
     }
 

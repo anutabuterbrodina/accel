@@ -59,7 +59,7 @@ class RequestListController
         return new JsonResponse($requestDTOList);
     }
 
-    #[Route('/new/register-project', methods: ['POST'])]
+    #[Route('/register-project', methods: ['POST'])]
     public function createRegisterProjectRequest(ServerRequestInterface $serverRequest): Response {
         $userId = new UserId(
             $serverRequest->getParsedBody()['userId']
@@ -89,7 +89,7 @@ class RequestListController
         return new Response('Заявка на создание проекта успешно создана');
     }
 
-    #[Route('/new/edit-project-business-data', methods: ['POST'])]
+    #[Route('/edit-project-business-data', methods: ['POST'])]
     public function createChangeProjectBusinessDataRequest(ServerRequestInterface $serverRequest): Response {
         $userId = new UserId(
             $serverRequest->getParsedBody()['userId']
@@ -117,7 +117,7 @@ class RequestListController
         return new Response('Заявка на регистрацию инвестора успешно создана');
     }
 
-    #[Route('/new/register-investor', methods: ['POST'])]
+    #[Route('/register-investor', methods: ['POST'])]
     public function createRegisterInvestorRequest(ServerRequestInterface $serverRequest): Response {
         $userId = new UserId(
             $serverRequest->getParsedBody()['userId']
@@ -153,7 +153,7 @@ class RequestListController
         return new Response('Заявка на регистрацию инвестора успешно создана');
     }
 
-    #[Route('/new/edit-investor-requisites', methods: ['POST'])]
+    #[Route('/edit-investor-requisites', methods: ['POST'])]
     public function createChangeInvestorRequisitesRequest(ServerRequestInterface $serverRequest): Response {
         $userId = new UserId(
             $serverRequest->getParsedBody()['userId']
