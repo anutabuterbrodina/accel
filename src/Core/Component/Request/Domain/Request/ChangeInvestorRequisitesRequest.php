@@ -46,7 +46,7 @@ class ChangeInvestorRequisitesRequest extends AbstractRequest
     ): self {
         return new self(
             new RequestId(),
-            TypesEnum::RegisterProject,
+            TypesEnum::ChangeInvestorRequisites,
             StatusesEnum::OnModeration,
             $creator,
             $creatorComment,

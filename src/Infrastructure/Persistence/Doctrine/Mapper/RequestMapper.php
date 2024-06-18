@@ -2,9 +2,14 @@
 
 namespace Accel\App\Infrastructure\Persistence\Doctrine\Mapper;
 
+use Accel\App\Core\Component\Request\Domain\Request\ChangeInvestorRequisitesRequest;
 use Accel\App\Core\Component\Request\Domain\Request\ChangeInvestorRequisitesRequest as ChangeInvestorReq;
+use Accel\App\Core\Component\Request\Domain\Request\ChangeInvestorRequisitesRequestContent;
+use Accel\App\Core\Component\Request\Domain\Request\ChangeProjectBusinessDataRequest;
 use Accel\App\Core\Component\Request\Domain\Request\ChangeProjectBusinessDataRequest as ChangeProjectReq;
+use Accel\App\Core\Component\Request\Domain\Request\ChangeProjectBusinessDataRequestContent;
 use Accel\App\Core\Component\Request\Domain\Request\RegisterInvestorRequest as RegisterInvestorReq;
+use Accel\App\Core\Component\Request\Domain\Request\RegisterInvestorRequestContent as RegisterInvestorReqCon;
 use Accel\App\Core\Component\Request\Domain\Request\RegisterProjectRequest as RegisterProjectReq;
 use Accel\App\Core\Component\Request\Domain\Request\RegisterProjectRequestContent as RegisterProjectReqCon;
 use Accel\App\Core\Component\Request\Domain\Request\RejectReasonsEnum;
@@ -13,11 +18,13 @@ use Accel\App\Core\Component\Request\Domain\Request\TypesEnum;
 use Accel\App\Core\Port\Mapper\RequestMapperInterface;
 use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
 use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
+use Accel\App\Core\SharedKernel\Common\ValueObject\Requisites;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
 use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\App\Core\SharedKernel\Component\Investor\InvestorId;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
 use Accel\App\Core\SharedKernel\Component\Request\RequestId;
+use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Investor as InvestorORM;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Project as ProjectORM;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\Request as RequestORM;
 use Accel\App\Infrastructure\Persistence\Doctrine\ORMEntity\User;
@@ -46,11 +53,11 @@ class RequestMapper implements RequestMapperInterface
         $targetEntity = $request->getTargetEntityId();
 
         if (isset($targetEntity) && $targetEntity instanceof ProjectId) {
-            $requestORM->setProject($this->findProjectById($targetEntity));
+            $requestORM->setProject($this->findProjectById($targetEntity->toScalar()));
         }
 
         if (isset($targetEntity) && $targetEntity instanceof InvestorId) {
-            $requestORM->setProject($this->findProjectById($targetEntity));
+            $requestORM->setInvestor($this->findInvestorById($targetEntity->toScalar()));
         }
 
         if ($this->isNew()) {
@@ -77,13 +84,18 @@ class RequestMapper implements RequestMapperInterface
         return $requestORM;
     }
 
+    private function findInvestorById(string $id): ?InvestorORM {
+        return $this->em->getRepository(InvestorORM::class)->findOneBy(['id' => $id]);
+    }
+
+    private function findProjectById(string $id): ?ProjectORM {
+        return $this->em->getRepository(ProjectORM::class)->findOneBy(['id' => $id]);
+    }
+
     private function findUserById(string $id): UserORM {
         return $this->em->getRepository(UserORM::class)->findOneBy(['id' => $id]);
     }
 
-    private function findProjectById(string $id): ?ProjectORM {
-        return $this->em->getRepository(UserORM::class)->findOneBy(['id' => $id]);
-    }
 
     /**
      * @param string[] $idList
@@ -115,10 +127,10 @@ class RequestMapper implements RequestMapperInterface
                 return $this->mapToRegisterInvestor($requestORM, $creatorId, $moderatorId, $investorId, $content);
 
             case TypesEnum::ChangeInvestorRequisites->value:
-                throw new \Exception('В процессе...');
+                return $this->mapToChangeInvestorRequisites($requestORM, $creatorId, $moderatorId, $investorId, $content);
 
             case TypesEnum::ChangeProjectBusinessData->value:
-                throw new \Exception('В процессе...');
+                return $this->mapToChangeProjectBusinessData($requestORM, $creatorId, $moderatorId, $projectId, $content);
 
             default:
                 throw new \Exception('Нет класса для такого типа заявки: ' . $type);
@@ -151,7 +163,40 @@ class RequestMapper implements RequestMapperInterface
                 $projectId,
                 $creatorId,
                 $content['name'],
-                $content['description'],
+                $content['description'] ?? null,
+                FileObject::of($content['businessPlan']),
+                InvestmentRangeEnum::from($content['investmentMin']),
+                InvestmentRangeEnum::from($content['investmentMax']),
+                $tags
+            ),
+        );
+    }
+
+    private function mapToChangeProjectBusinessData(
+        RequestORM $requestORM,
+        UserId $creatorId,
+        ?UserId $moderatorId,
+        ProjectId $projectId,
+        array $content,
+    ): ChangeProjectBusinessDataRequest {
+        $tags = [];
+        foreach ($content['tags'] as $tagName) {
+            $tags[] = Tag::of($tagName);
+        }
+
+        return new ChangeProjectBusinessDataRequest(
+            new RequestId($requestORM->getId()),
+            TypesEnum::from($requestORM->getType()),
+            StatusesEnum::from($requestORM->getStatus()),
+            $creatorId,
+            $requestORM->getCreatorComment(),
+            $moderatorId,
+            $requestORM->getRejectReason() ? RejectReasonsEnum::from($requestORM->getRejectReason()) : null,
+            $requestORM->getRejectMessage(),
+            $projectId,
+            new ChangeProjectBusinessDataRequestContent(
+                $projectId,
+                $creatorId,
                 FileObject::of($content['businessPlan']),
                 InvestmentRangeEnum::from($content['investmentMin']),
                 InvestmentRangeEnum::from($content['investmentMax']),
@@ -163,12 +208,12 @@ class RequestMapper implements RequestMapperInterface
     private function mapToRegisterInvestor(
         RequestORM $requestORM,
         UserId $creatorId,
-        UserId $moderatorId,
-        InvestorId $investorId,
+        ?UserId $moderatorId,
+        ?InvestorId $investorId,
         array $content,
     ): RegisterInvestorReq {
         $tags = [];
-        foreach ($content['interests'] as $tagName) {
+        foreach ($content['tags'] as $tagName) {
             $tags[] = Tag::of($tagName);
         }
 
@@ -181,8 +226,59 @@ class RequestMapper implements RequestMapperInterface
             $moderatorId,
             $requestORM->getRejectReason(),
             $requestORM->getRejectMessage(),
-            $content['name'],
-            $content['description'],
+            $investorId,
+            new RegisterInvestorReqCon(
+                $investorId,
+                $creatorId,
+                $content['type'],
+                $content['name'],
+                $content['description'] ?? null,
+                new Requisites(
+                    $content['requisites']['legalName'] ?? null,
+                    $content['requisites']['address'] ?? null,
+                    $content['requisites']['INN'] ?? null,
+                    $content['requisites']['OGRN'] ?? null,
+                    $content['requisites']['KPP'] ?? null,
+                    $content['requisites']['OKPO'] ?? null,
+                    $content['requisites']['BIK'] ?? null,
+                ),
+                $tags,
+            ),
+        );
+    }
+
+    private function mapToChangeInvestorRequisites(
+        RequestORM $requestORM,
+        UserId $creatorId,
+        ?UserId $moderatorId,
+        InvestorId $investorId,
+        array $content,
+    ): ChangeInvestorRequisitesRequest {
+
+        return new ChangeInvestorRequisitesRequest(
+            new RequestId($requestORM->getId()),
+            TypesEnum::from($requestORM->getType()),
+            StatusesEnum::from($requestORM->getStatus()),
+            $creatorId,
+            $requestORM->getCreatorComment(),
+            $moderatorId,
+            $requestORM->getRejectReason(),
+            $requestORM->getRejectMessage(),
+            $investorId,
+            new ChangeInvestorRequisitesRequestContent(
+                $investorId,
+                $creatorId,
+                $content['type'],
+                new Requisites(
+                    $content['requisites']['legalName'] ?? null,
+                    $content['requisites']['address'] ?? null,
+                    $content['requisites']['INN'] ?? null,
+                    $content['requisites']['OGRN'] ?? null,
+                    $content['requisites']['KPP'] ?? null,
+                    $content['requisites']['OKPO'] ?? null,
+                    $content['requisites']['BIK'] ?? null,
+                ),
+            ),
         );
     }
 }

@@ -30,6 +30,12 @@ class InvestorListQuery
             ->innerJoin('Investor.tags', 'TagAgg')
             ->innerJoin('Investor.users', 'User');
 
+        if ($filters->getUserId() === null) {
+            $this->queryBuilder
+                ->where('Investor.isActive = :isActive')
+                ->setParam('isActive', true);
+        }
+
         if ($filters->getLimit() !== null) {
             $this->queryBuilder->setMaxResults($filters->getLimit());
         }

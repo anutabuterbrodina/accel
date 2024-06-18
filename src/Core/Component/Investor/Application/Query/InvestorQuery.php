@@ -31,12 +31,14 @@ final class InvestorQuery
                 'Investor.okpo',
                 'Investor.bik',
                 'Investor.createdAt',
+                'Owner.id AS ownerId',
                 'JSON_ARRAYAGG(Tag.name) AS interests',
-                'JSON_ARRAYAGG(Member.id) AS members',
+                'JSON_ARRAYAGG(User.id) AS members',
             )
-            ->innerJoin('Investor.tags', 'Tag')
-            ->innerJoin('Investor.users', 'Member')
             ->where('Investor.id = :investorId')
+            ->innerJoin('Investor.tags', 'Tag')
+            ->innerJoin('Investor.users', 'User')
+            ->innerJoin('Investor.owner', 'Owner')
             ->setParam('investorId', $investorId->toScalar());
 
         $queryWrapper = $this->queryBuilder->build();

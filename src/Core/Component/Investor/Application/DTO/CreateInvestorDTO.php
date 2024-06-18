@@ -36,7 +36,7 @@ class CreateInvestorDTO
         return $this->description;
     }
 
-    public function getType(): int {
+    public function getType(): string {
         return $this->type;
     }
 

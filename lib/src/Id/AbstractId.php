@@ -2,7 +2,7 @@
 
 namespace Accel\Extension\Id;
 
-abstract class AbstractId
+abstract class AbstractId implements \JsonSerializable
 {
     /** @var mixed $id */
     protected $id;
@@ -12,14 +12,15 @@ abstract class AbstractId
         $this->id = $id;
     }
 
+    public function jsonSerialize(): mixed
+    {
+        return $this->id;
+    }
+
     abstract protected function isValid($value): bool;
 
     public function __toString(): string {
         return (string) $this->id;
-    }
-
-    public function jsonSerialize() {
-        return $this->id;
     }
 
     public function equals($id): bool {

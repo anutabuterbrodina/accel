@@ -27,6 +27,7 @@ final class ProjectQuery
                 'Project.investmentMax',
                 'Project.createdAt',
                 'Contact.id as contactId',
+                'Owner.id AS ownerId',
                 'JSON_ARRAYAGG(Tag.name) AS tags',
                 'JSON_ARRAYAGG(User.id) AS members',
             )
@@ -34,6 +35,7 @@ final class ProjectQuery
             ->innerJoin('Project.users', 'User')
             ->innerJoin('Project.tags', 'Tag')
             ->innerJoin('Project.contact', 'Contact')
+            ->innerJoin('Project.owner', 'Owner')
             ->setParam('projectId', $projectId->toScalar());
 
         $queryWrapper = $this->queryBuilder->build();

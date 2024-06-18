@@ -50,12 +50,10 @@ class InvestorMapper implements InvestorMapperInterface
         $tagNamesList = array_map(fn(Tag $tag) => $tag->toScalar(), $investor->getInterests());
         $investorORM->setTags(new ArrayCollection($this->findTagsByName($tagNamesList)));
 
+        $investorORM->setOwner($this->findUserById($investor->getOwner()->toScalar()));
+
         if (null !== $old = $this->investorORM) {
             $investorORM->setUpdatedAt(time());
-
-            if ($old->getOwner()->getId() !== $newOwnerId = $investor->getOwner()->toScalar()) {
-                $investorORM->setOwner($this->findUserById($newOwnerId));
-            }
         } else {
             $investorORM->setId($investor->getId()->toScalar());
             $investorORM->setCreatedAt(time());

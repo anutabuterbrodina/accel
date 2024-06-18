@@ -50,7 +50,7 @@ class RegisterInvestorRequest extends AbstractRequest
     ): self {
         return new self(
             new RequestId(),
-            TypesEnum::RegisterProject,
+            TypesEnum::RegisterInvestor,
             StatusesEnum::OnModeration,
             $creator,
             $creatorComment,

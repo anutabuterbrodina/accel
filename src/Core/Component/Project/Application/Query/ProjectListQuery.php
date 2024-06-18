@@ -33,6 +33,12 @@ class ProjectListQuery
             ->innerJoin('Project.tags', 'TagAgg')
             ->innerJoin('Project.users', 'User');
 
+        if ($filters->getUserId() === null) {
+            $this->queryBuilder
+                ->where('Project.status <> :archived')
+                ->setParam('archived', 'archived');
+        }
+
         if ($filters->getLimit() !== null) {
             $this->queryBuilder->setMaxResults($filters->getLimit());
         }
@@ -41,7 +47,6 @@ class ProjectListQuery
             $tags[] = $tag->toScalar();
         }
 
-        // TODO: Redo
         foreach ($projectIdList as $id) {
             $projectIds[] = $id->toScalar();
         }

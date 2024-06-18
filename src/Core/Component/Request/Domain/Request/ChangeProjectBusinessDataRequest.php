@@ -55,7 +55,7 @@ class ChangeProjectBusinessDataRequest extends AbstractRequest
 
         return new self(
             new RequestId(),
-            TypesEnum::RegisterProject,
+            TypesEnum::ChangeProjectBusinessData,
             StatusesEnum::OnModeration,
             $creator,
             $creatorComment,

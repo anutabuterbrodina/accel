@@ -27,6 +27,7 @@ class ProjectDTO implements ConstructableFromArrayInterface
         public readonly int     $createdAt,
         public readonly string  $contactId,
         public readonly ?string $description = null,
+        public readonly ?string $ownerId = null,
     ) {
         $this->tagsList = json_decode($tags);
         $this->membersList = json_decode($this->members);

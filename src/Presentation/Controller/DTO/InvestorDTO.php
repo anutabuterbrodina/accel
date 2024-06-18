@@ -26,6 +26,7 @@ class InvestorDTO implements ConstructableFromArrayInterface
         public  readonly string  $name,
         public  readonly int     $createdAt,
         public  readonly ?string $description = null,
+        public  readonly ?string $ownerId = null,
         private readonly ?string $legalName = null,
         private readonly ?string $address = null,
         private readonly ?string $inn = null,
