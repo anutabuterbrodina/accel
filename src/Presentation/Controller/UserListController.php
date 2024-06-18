@@ -32,7 +32,7 @@ class UserListController
 
         $userIdsList = [];
         foreach ($queryParams['userIds'] as $id) {
-            $userIdsList = new UserId($id);
+            $userIdsList[] = new UserId($id);
         }
 
         $userDTOList = $this->userListQuery
@@ -52,6 +52,7 @@ class UserListController
             $request->getParsedBody()['phone'],
 //            password_hash($request->getParsedBody()['password'], PASSWORD_DEFAULT),
             $request->getParsedBody()['password'],
+            $request->getParsedBody()['type'],
         ));
 
         $authToken = JWTHelper::generateJWT(
@@ -69,6 +70,7 @@ class UserListController
                 "id" => $user->getId()->toScalar(),
                 "email" => $user->getEmail(),
                 "role" => $user->getRole(),
+                "type" => $user->getType(),
             ],
             "token" => $authToken
         ]);

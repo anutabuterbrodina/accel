@@ -25,9 +25,11 @@ class UserQuery
                 'User.phone',
                 'User.isActive',
                 'User.role',
-                'User.createAt',
+                'User.createdAt',
                 'User.updatedAt',
+                'Account.type',
             )
+            ->innerJoin('User.account', 'Account')
             ->andWhere('User.id = :id')
             ->setParameter('id', $id->toScalar())
             ->build();

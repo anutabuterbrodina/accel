@@ -73,7 +73,7 @@ final class ResultCollection implements \JsonSerializable
 
         $item = reset($this->itemList);
         if (!\is_array($item)) { // we assume all items have the same type
-            throw new \Exception('CanOnlyHydrateFromArrayException: ' . $item);
+            throw new EmptyListException('CanOnlyHydrateFromArrayException: ' . $item);
         }
 
         $hydratedItemList = [];

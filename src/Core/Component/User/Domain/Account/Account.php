@@ -8,6 +8,7 @@ class Account extends AbstractEntity
 {
     public function __construct(
         private readonly AccountId $id,
+        private readonly TypesEnum $type,
     ) {}
 
 
@@ -22,5 +23,10 @@ class Account extends AbstractEntity
     public function getId(): AccountId
     {
         return $this->id;
+    }
+
+    public function getType(): TypesEnum
+    {
+        return $this->type;
     }
 }

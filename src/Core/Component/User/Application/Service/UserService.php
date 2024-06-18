@@ -21,6 +21,7 @@ class UserService
             $DTO->getEmail(),
             $DTO->getPhone(),
             $DTO->getPassword(),
+            $DTO->getType(),
         );
 
         $this->userRepository->add($user);

@@ -28,12 +28,12 @@ final class ProjectQuery
                 'Project.createdAt',
                 'Contact.id as contactId',
                 'JSON_ARRAYAGG(Tag.name) AS tags',
-                'JSON_ARRAYAGG(Member.id) AS members',
+                'JSON_ARRAYAGG(User.id) AS members',
             )
-            ->innerJoin('Project.tags', 'Tag')
-            ->innerJoin('Project.users', 'Member')
-            ->innerJoin('Project.contact', 'Contact')
             ->where('Project.id = :projectId')
+            ->innerJoin('Project.users', 'User')
+            ->innerJoin('Project.tags', 'Tag')
+            ->innerJoin('Project.contact', 'Contact')
             ->setParam('projectId', $projectId->toScalar());
 
         $queryWrapper = $this->queryBuilder->build();

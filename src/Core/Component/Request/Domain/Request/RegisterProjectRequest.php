@@ -85,8 +85,7 @@ class RegisterProjectRequest extends AbstractRequest
         $this->targetEntityId = $projectId;
         $this->setProjectId($projectId);
 
-        $this->moderator = $moderator;
-        parent::changeStatus();
+        parent::accept($moderator);
     }
 
     /** Приватные методы */

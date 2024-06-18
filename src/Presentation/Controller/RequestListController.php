@@ -11,6 +11,7 @@ use Accel\App\Core\Component\Request\Application\DTO\RequestListSortOptionsEnum;
 use Accel\App\Core\Component\Request\Application\Query\RequestListQuery;
 use Accel\App\Core\Component\Request\Application\Service\RequestService;
 use Accel\App\Core\Component\Request\Domain\Request\StatusesEnum;
+use Accel\App\Core\Port\EmptyListException;
 use Accel\App\Core\SharedKernel\Common\Enum\InvestmentRangeEnum;
 use Accel\App\Core\SharedKernel\Common\SortOrderEnum;
 use Accel\App\Core\SharedKernel\Common\ValueObject\FileObject;
@@ -53,8 +54,12 @@ class RequestListController
             isset($queryParams['sortOrder']) ? SortOrderEnum::from($queryParams['sortOrder']) : null,
         );
 
-        $requestDTOList = $this->requestListQuery->execute($filters)
-            ->hydrateResultItemsAs(RequestListItemDTO::class);
+        try {
+            $requestDTOList = $this->requestListQuery->execute($filters)
+                ->hydrateResultItemsAs(RequestListItemDTO::class);
+        } catch (EmptyListException $e) {
+            return new Response('По данным критериям ничего не найдено');
+        }
 
         return new JsonResponse($requestDTOList);
     }

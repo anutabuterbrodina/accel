@@ -2,8 +2,6 @@
 
 namespace Accel\App\Core\Component\User\Application\DTO;
 
-use Accel\App\Core\SharedKernel\Component\User\UserId;
-
 class CreateUserDTO
 {
     public function __construct(
@@ -12,6 +10,7 @@ class CreateUserDTO
         private readonly string $email,
         private readonly string $phone,
         private readonly string $password,
+        private readonly int    $type,
     ) {}
 
     public function getName(): string {
@@ -32,5 +31,9 @@ class CreateUserDTO
 
     public function getPassword(): string {
         return $this->password;
+    }
+
+    public function getType(): int {
+        return $this->type;
     }
 }

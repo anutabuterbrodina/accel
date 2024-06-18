@@ -74,10 +74,11 @@ class RegisterInvestorRequest extends AbstractRequest
     /** Публичные методы */
 
     public function accept(UserId $moderator): void {
-        $this->targetEntityId = new InvestorId();
+        $investorId = new InvestorId();
+        $this->targetEntityId = $investorId;
+        $this->setInvestorId($investorId);
 
-        $this->moderator = $moderator;
-        parent::changeStatus();
+        parent::accept($moderator);
     }
 
 
@@ -88,5 +89,9 @@ class RegisterInvestorRequest extends AbstractRequest
 
     public function getContent(): RegisterInvestorRequestContent {
         return $this->content;
+    }
+
+    public function setInvestorId(InvestorId $investorId): void {
+        $this->content->setInvestorId($investorId);
     }
 }

@@ -123,6 +123,7 @@ class UserController
                 "id" => $user->getId()->toScalar(),
                 "email" => $user->getEmail(),
                 "role" => $user->getRole(),
+                "type" => $user->getType(),
             ],
             "token" => $authToken
         ]);

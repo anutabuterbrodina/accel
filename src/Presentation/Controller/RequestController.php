@@ -9,6 +9,7 @@ use Accel\App\Core\Component\Project\Application\DTO\UpdateProjectBusinessDataDT
 use Accel\App\Core\Component\Project\Application\Service\ProjectService;
 use Accel\App\Core\Component\Request\Application\Query\RequestQuery;
 use Accel\App\Core\Component\Request\Application\Service\RequestService;
+use Accel\App\Core\Component\Request\Domain\Request\CanAcceptOnce;
 use Accel\App\Core\Component\Request\Domain\Request\ChangeInvestorRequisitesRequestContent;
 use Accel\App\Core\Component\Request\Domain\Request\ChangeProjectBusinessDataRequestContent;
 use Accel\App\Core\Component\Request\Domain\Request\RegisterInvestorRequestContent;
@@ -51,10 +52,14 @@ class RequestController
         // TODO: Fetch from auth headers
         // TODO: Сделать проверку на роль модератора пользователя
 
-        $content = $this->requestService->acceptAndReturnRequestContent(
-            new RequestId($request->getParsedBody()['requestId']),
-            new UserId($userId)
-        );
+        try {
+            $content = $this->requestService->acceptAndReturnRequestContent(
+                new RequestId($request->getParsedBody()['requestId']),
+                new UserId($userId)
+            );
+        } catch (CanAcceptOnce $e) {
+            return new Response('Заявка уже отмодерирована');
+        }
 
         // TODO: Перевести на EventSourcing
 

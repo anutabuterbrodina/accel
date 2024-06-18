@@ -7,6 +7,7 @@ use Accel\App\Core\Component\Request\Application\DTO\CreateChangeProjectBusiness
 use Accel\App\Core\Component\Request\Application\DTO\CreateRegisterInvestorRequestDTO;
 use Accel\App\Core\Component\Request\Application\DTO\CreateRegisterProjectRequestDTO;
 use Accel\App\Core\Component\Request\Application\Repository\RequestRepository;
+use Accel\App\Core\Component\Request\Domain\Request\CanAcceptOnce;
 use Accel\App\Core\Component\Request\Domain\Request\ChangeInvestorRequisitesRequest;
 use Accel\App\Core\Component\Request\Domain\Request\ChangeProjectBusinessDataRequest;
 use Accel\App\Core\Component\Request\Domain\Request\RegisterInvestorRequest;
@@ -77,6 +78,7 @@ class RequestService
         $this->requestRepository->add($request);
     }
 
+    /** @throws CanAcceptOnce */
     public function acceptAndReturnRequestContent(RequestId $requestId, UserId $moderator): RequestContentInterface {
         $request = $this->requestRepository->findById($requestId);
 

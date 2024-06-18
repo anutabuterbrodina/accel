@@ -15,5 +15,6 @@ class UserListItemDTO implements ConstructableFromArrayInterface
         public readonly string  $surname,
         public readonly string  $email,
         public readonly string  $phone,
+        public readonly int     $type,
     ) {}
 }

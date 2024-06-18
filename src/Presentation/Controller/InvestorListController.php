@@ -6,6 +6,7 @@ use Accel\App\Core\Component\Investor\Application\DTO\InvestorListFiltersDTO;
 use Accel\App\Core\Component\Investor\Application\DTO\InvestorListSortOptionsEnum;
 use Accel\App\Core\Component\Investor\Application\Query\InvestorListQuery;
 use Accel\App\Core\Component\Investor\Domain\Investor\TypesEnum;
+use Accel\App\Core\Port\EmptyListException;
 use Accel\App\Core\SharedKernel\Common\SortOrderEnum;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
 use Accel\App\Core\SharedKernel\Component\User\UserId;
@@ -46,8 +47,12 @@ class InvestorListController
             isset($queryParams['sortOrder']) ? SortOrderEnum::from($queryParams['sortOrder']) : null,
         );
 
-        $investorDTOList = $this->investorListQuery->execute($filters)
-            ->hydrateResultItemsAs(InvestorListItemDTO::class);
+        try {
+            $investorDTOList = $this->investorListQuery->execute($filters)
+                ->hydrateResultItemsAs(InvestorListItemDTO::class);
+        } catch (EmptyListException $e) {
+            return new Response('По данным критериям ничего не найдено');
+        }
 
         return new JsonResponse($investorDTOList);
     }

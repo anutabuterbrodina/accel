@@ -30,9 +30,11 @@ class UserListQuery
                 'User.email',
                 'User.phone',
                 'User.phone',
+                'Account.type',
             )
+            ->innerJoin('User.account', 'Account')
             ->where('User.isActive = 1')
-            ->andWhere('User.id IN :userIds')
+            ->andWhere('User.id IN (:userIds)')
             ->setParameter('userIds', $userIds)
             ->build();
 

@@ -24,7 +24,14 @@ abstract class AbstractRequest extends AbstractEntity implements RequestInterfac
 
     abstract public function getContent(): RequestContentInterface;
 
-    abstract public function accept(UserId $moderator): void;
+    public function accept(UserId $moderator): void {
+        if ($this->status !== StatusesEnum::OnModeration) {
+            throw new CanAcceptOnce();
+        }
+
+        $this->moderator = $moderator;
+        $this->changeStatus(StatusesEnum::Accepted);
+    }
 
 
     /** Публичные методы */
@@ -38,8 +45,8 @@ abstract class AbstractRequest extends AbstractEntity implements RequestInterfac
 
     /** Приватные методы */
 
-    protected function changeStatus(): void {
-        $this->status = StatusesEnum::Accepted;
+    protected function changeStatus(StatusesEnum $status): void {
+        $this->status = $status;
     }
 
 

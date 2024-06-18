@@ -13,6 +13,9 @@ class Account
     private string $id;
 
     #[ORM\Column]
+    private int $type;
+
+    #[ORM\Column]
     private int $createdAt;
 
     #[ORM\Column]
@@ -32,6 +35,22 @@ class Account
     public function setId(string $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param int $type
+     */
+    public function setType(int $type): void
+    {
+        $this->type = $type;
     }
 
     /**

@@ -23,7 +23,7 @@ class Payload
             "email"     => $this->email,
             "phone"     => $this->phone,
             "issuer"    => self::ISSUER,
-            "createAt"  => time(),
+            "createdAt"  => time(),
             "expiresIn" => time() + self::EXPIRATION,
         ];
     }

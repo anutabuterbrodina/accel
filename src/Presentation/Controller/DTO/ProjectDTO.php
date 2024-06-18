@@ -18,14 +18,14 @@ class ProjectDTO implements ConstructableFromArrayInterface
     public function __construct(
         private readonly string $tags,
         private readonly string $members,
-        public readonly string $id,
-        public readonly string $status,
-        public readonly string $name,
-        public readonly string $businessPlanPath,
-        public readonly string $investmentMin,
-        public readonly string $investmentMax,
-        public readonly int $createdAt,
-        public readonly string $contactId,
+        public readonly string  $id,
+        public readonly string  $status,
+        public readonly string  $name,
+        public readonly string  $businessPlanPath,
+        public readonly int     $investmentMin,
+        public readonly int     $investmentMax,
+        public readonly int     $createdAt,
+        public readonly string  $contactId,
         public readonly ?string $description = null,
     ) {
         $this->tagsList = json_decode($tags);

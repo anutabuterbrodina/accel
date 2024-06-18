@@ -4,6 +4,7 @@ namespace Accel\App\Core\Component\User\Domain\User;
 
 use Accel\App\Core\Component\User\Domain\Account\Account;
 use Accel\App\Core\Component\User\Domain\Account\AccountId;
+use Accel\App\Core\Component\User\Domain\Account\TypesEnum;
 use Accel\App\Core\SharedKernel\Component\User\UserId;
 use Accel\Extension\Entity\AbstractEntity;
 
@@ -30,11 +31,13 @@ class User extends AbstractEntity
         string $email,
         string $phone,
         string $password,
+        string $type,
     ): self {
        return new self(
            new UserId(),
            new Account(
-               new AccountId()
+               new AccountId(),
+               TypesEnum::from($type),
            ),
            true,
            $name,
@@ -84,6 +87,10 @@ class User extends AbstractEntity
 
     public function getAccountId(): AccountId {
         return $this->account->getId();
+    }
+
+    public function getType(): TypesEnum {
+        return $this->account->getType();
     }
 
     public function getAccount(): Account {

@@ -6,6 +6,7 @@ use Accel\App\Core\Component\Project\Application\DTO\ProjectListFiltersDTO;
 use Accel\App\Core\Component\Project\Application\DTO\ProjectListSortOptionsEnum;
 use Accel\App\Core\Component\Project\Application\Query\BookmarkListQuery;
 use Accel\App\Core\Component\Project\Application\Query\ProjectListQuery;
+use Accel\App\Core\Port\EmptyListException;
 use Accel\App\Core\SharedKernel\Common\SortOrderEnum;
 use Accel\App\Core\SharedKernel\Common\ValueObject\Tag;
 use Accel\App\Core\SharedKernel\Component\Project\ProjectId;
@@ -55,8 +56,12 @@ class ProjectListController
             isset($queryParams['sortOrder']) ? SortOrderEnum::from($queryParams['sortOrder']) : null,
         );
 
-        $projectDTOList = $this->projectListQuery->execute($filters, $projectIdsList)
-            ->hydrateResultItemsAs(ProjectListItemDTO::class);
+        try {
+            $projectDTOList = $this->projectListQuery->execute($filters, $projectIdsList)
+                ->hydrateResultItemsAs(ProjectListItemDTO::class);
+        } catch (EmptyListException $e) {
+            return new Response('По данным критериям ничего не найдено');
+        }
 
         return new JsonResponse($projectDTOList);
     }

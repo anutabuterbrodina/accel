@@ -77,10 +77,6 @@ class ChangeProjectBusinessDataRequest extends AbstractRequest
 
     /** Публичные методы */
 
-    public function accept(UserId $moderator): void {
-        $this->moderator = $moderator;
-        parent::changeStatus();
-    }
 
     /** Приватные методы */
 

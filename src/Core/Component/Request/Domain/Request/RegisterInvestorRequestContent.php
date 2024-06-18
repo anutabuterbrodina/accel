@@ -11,7 +11,7 @@ class RegisterInvestorRequestContent implements RequestContentInterface, \JsonSe
 {
     /** @param Tag[] $investorInterests */
     public function __construct(
-        private readonly ?InvestorId $investorId,
+        private          ?InvestorId $investorId,
         private readonly UserId      $investorCreator,
         private readonly string      $investorType,
         private readonly string      $investorName,
@@ -47,6 +47,10 @@ class RegisterInvestorRequestContent implements RequestContentInterface, \JsonSe
     /** @return Tag[] */
     public function getInvestorInterests(): array {
         return $this->investorInterests;
+    }
+
+    public function setInvestorId(InvestorId $investorId): void {
+        $this->investorId = $investorId;
     }
 
     public function jsonSerialize(): array

@@ -4,6 +4,7 @@ namespace Accel\App\Infrastructure\Persistence\Doctrine\Mapper;
 
 use Accel\App\Core\Component\User\Domain\Account\Account;
 use Accel\App\Core\Component\User\Domain\Account\AccountId;
+use Accel\App\Core\Component\User\Domain\Account\TypesEnum;
 use Accel\App\Core\Component\User\Domain\User\RolesEnum;
 use Accel\App\Core\Component\User\Domain\User\User;
 use Accel\App\Core\Port\Mapper\UserMapperInterface;
@@ -41,6 +42,7 @@ class UserMapper implements UserMapperInterface
         } else {
             $accountORM = new AccountORM();
             $accountORM->setId($user->getAccountId()->toScalar());
+            $accountORM->setType($user->getType()->value);
             $accountORM->setCreatedAt(time());
 
             $userORM->setAccount($accountORM);
@@ -60,9 +62,14 @@ class UserMapper implements UserMapperInterface
     public function mapToDomain($userORM): User {
         $this->userORM = $userORM;
 
+        $account = new Account(
+            new AccountId($userORM->getAccount()->getId()),
+            TypesEnum::from($userORM->getAccount()->getType()),
+        );
+
         return new User(
             new UserId($userORM->getId()),
-            new Account(new AccountId($userORM->getAccount()->getId())),
+            $account,
             $userORM->getIsActive(),
             $userORM->getName(),
             $userORM->getSurname(),

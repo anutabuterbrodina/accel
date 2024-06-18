@@ -18,6 +18,7 @@ class UserDTO implements ConstructableFromArrayInterface
         public readonly bool   $isActive,
         public readonly string $role,
         public readonly int    $createdAt,
-        public readonly int    $updatedAt,
+        public readonly int    $type,
+        public readonly ?int   $updatedAt = null,
     ) {}
 }
