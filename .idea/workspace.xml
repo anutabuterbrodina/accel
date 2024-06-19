@@ -6,19 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="157080a4-8f32-454b-85af-8a4d29031a81" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Id/AbstractId.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Id/AbstractId.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Application/DTO/CreateInvestorDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/DTO/CreateInvestorDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Query/InvestorListQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Query/InvestorListQuery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Query/InvestorQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Investor/Application/Query/InvestorQuery.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Core/Component/Project/Application/Query/ProjectListQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/Query/ProjectListQuery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Project/Application/Query/ProjectQuery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Project/Application/Query/ProjectQuery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeInvestorRequisitesRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeInvestorRequisitesRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeProjectBusinessDataRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/ChangeProjectBusinessDataRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RegisterInvestorRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Core/Component/Request/Domain/Request/RegisterInvestorRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/InvestorMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/InvestorMapper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/RequestMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Infrastructure/Persistence/Doctrine/Mapper/RequestMapper.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/DTO/InvestorDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/DTO/InvestorDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Presentation/Controller/DTO/ProjectDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Presentation/Controller/DTO/ProjectDTO.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,7 +200,7 @@
       <workItem from="1718182568689" duration="8309000" />
       <workItem from="1718195622306" duration="24092000" />
       <workItem from="1718258176659" duration="47143000" />
-      <workItem from="1718557232958" duration="38125000" />
+      <workItem from="1718557232958" duration="44600000" />
     </task>
     <servers />
   </component>

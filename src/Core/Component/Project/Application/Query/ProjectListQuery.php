@@ -22,7 +22,7 @@ class ProjectListQuery
             ->select(
                 'Project.id',
                 'Project.name AS name',
-                'Project.description',
+                'Project.description AS description',
                 'Project.investmentMin',
                 'Project.investmentMax',
                 'Project.createdAt',
